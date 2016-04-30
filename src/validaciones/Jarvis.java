@@ -127,7 +127,7 @@ public class Jarvis {
 				respuesta="Las contraseñas deben ser iguales";
 			} else if ( !dni.matches("[0-9]*") || dni.length()!=8 ) {
 				respuesta="El campo DNI debe contener solo 8 numeros";
-			} else if ( !nom.matches("[a-zA-Z]*") || nom.length()>25 ) {
+			} else if ( !nom.matches("[a-zA-Z\\s]*") || nom.length()>25 ) {
 				respuesta="El campo Nombre debe contener solo letras";
 			} else if ( !tel.matches("[0-9]*") || tel.length()<6 || tel.length()>11 ) {
 				respuesta="El campo Telefono debe contener solo numeros (domicilio o celular)";

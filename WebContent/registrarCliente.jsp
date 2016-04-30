@@ -39,24 +39,24 @@
 
 	<form action="RegistrarCliente" method="post">
 		  Usuario:<br>
-		  <input type="text" name="usuarioCliente" maxlength="20" autocomplete="off" required>
+		  <input type="text" name="usuarioCliente" placeholder="Solo letras y/o numeros" maxlength="20" autocomplete="off" required>
 		  <br>
 		  Contraseña:<br>
-		  <input type="password" name="contCliente" maxlength="20" autocomplete="off" required>
+		  <input type="password" name="contCliente" placeholder="Solo letras y/o numeros" maxlength="20" autocomplete="off" required>
 		  <br>
 		  Repetir contraseña:<br>
-		  <input type="password" name="confCont" maxlength="20" autocomplete="off" required>
+		  <input type="password" name="confCont" placeholder="Solo letras y/o numeros" maxlength="20" autocomplete="off" required>
 		  <br>
 		  DNI:<br>
 		  <input type="text" name="dniCliente" maxlength="8" autocomplete="off" required>
 		  <br>
 		  Nombre:<br>
-		  <input type="text" name="nombreCliente" maxlength="25" autocomplete="off" required>
+		  <input type="text" name="nombreCliente" placeholder="Solo letras" maxlength="25" autocomplete="off" required>
 		  <br>
 		  Teléfono:<br>
-		  <input type="text" name="telefonoCliente" maxlength="11" autocomplete="off" required>
+		  <input type="text" name="telefonoCliente" placeholder="Domicilio o Celular" maxlength="11" autocomplete="off" required>
 		  <br><br>
-		  <input type="submit" class="btn btn-primary" value="Registrar" >
+		  <input type="submit" class="btn btn-success" value="Registrar" >
 		  <input type="reset" class="btn btn-default" value="Reset" >
 	</form>
     <br>   
