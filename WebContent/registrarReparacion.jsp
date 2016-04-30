@@ -19,7 +19,7 @@
 <link href="bootstrap/js/bootstrap.npm.js" rel="stylesheet" />
 
 
-<title>Reparacion</title>
+<title>Registrar reparación</title>
 
 <style type="text/css">
     h1{

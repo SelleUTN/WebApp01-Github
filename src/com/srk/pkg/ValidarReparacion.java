@@ -12,9 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidad.Mecanico;
-import entidad.Reparacion;
 import entidad.Taller;
-import negocio.datos.CatalogoMecanicos;
+import negocio.datos.CatalogoReparaciones;
 import negocio.datos.CatalogoVehiculos;
 import validaciones.Jarvis;
 
@@ -106,23 +105,23 @@ public class ValidarReparacion extends HttpServlet {
 													
 														switch (resp4) {
 											            
-													    case "Taller":  new CatalogoVehiculos().insertReparacionTaller(new Taller(nroPatente,fechaDesde,fechaHasta,tipoReparacion));
+													    case "Taller":  new CatalogoReparaciones().insertReparacionTaller(new Taller(nroPatente,fechaDesde,fechaHasta,tipoReparacion));
 													    	// Formato de Direccion correcta correcta
 													    				getServletContext().getRequestDispatcher("/pagppalGerente.jsp").forward(request,response);
 													    				break;
 											            case "Mecanico": 
 											            	// Input solo de letras validada
-											            				if ( new CatalogoMecanicos().validarMecanico(tipoReparacion).isEmpty() ) {
+											            				if ( new CatalogoReparaciones().validarMecanico(tipoReparacion).isEmpty() ) {
 											            					request.setAttribute("respuesta", "El mecanico ingresado no existe"); 
 												            				respuesta(request,response);
 												            				break;
 											            				} else {
-												            					if ( !new CatalogoMecanicos().getMecanicoDisp(tipoReparacion,fechaDesde,fechaHasta).isEmpty() ) {
+												            					if ( !new CatalogoReparaciones().getMecanicoDisp(tipoReparacion,fechaDesde,fechaHasta).isEmpty() ) {
 												            						request.setAttribute("respuesta", "El mecanico "+tipoReparacion+" no se encuentra disponible en esas fechas"); 
 														            				respuesta(request,response);
 														            				break;
 												            					} else {
-												            						new CatalogoVehiculos().insertReparacionMecanico(new Mecanico(nroPatente,fechaDesde,fechaHasta,tipoReparacion));
+												            						new CatalogoReparaciones().insertReparacionMecanico(new Mecanico(nroPatente,fechaDesde,fechaHasta,tipoReparacion));
 												            						getServletContext().getRequestDispatcher("/pagppalGerente.jsp").forward(request,response);
 												            						break;
 												            					}

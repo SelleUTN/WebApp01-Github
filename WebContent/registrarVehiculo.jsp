@@ -19,7 +19,7 @@
 <link href="bootstrap/js/bootstrap.min.js" rel="stylesheet" />
 <link href="bootstrap/js/bootstrap.npm.js" rel="stylesheet" />
 
-<title>Registrarse</title>
+<title>Registrar vehiculo</title>
 
 <style type="text/css">
     h1{

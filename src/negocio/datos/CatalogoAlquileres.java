@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import entidad.Alquiler;
+import entidad.Taller;
 import util.DataConnectionManager;
 
 public class CatalogoAlquileres {
@@ -57,7 +58,51 @@ public class CatalogoAlquileres {
 
 //====================================================================================	
 	
-	public void insertAlquiler(Alquiler alq){
+	public ArrayList<Alquiler> getVehAlquileres(String nroPat) {
+		
+		ArrayList<Alquiler> alquileres = new ArrayList<Alquiler>();
+
+		String sql= "select * from alquileres where nroPatente=?;";
+		PreparedStatement sentencia=null;
+		Connection conn=DataConnectionManager.getInstancia().getConn();
+		ResultSet rs=null;
+				
+		try {	
+				sentencia=conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				sentencia.setString(1,nroPat);
+				rs = sentencia.executeQuery();
+
+				while(rs.next()){
+					Alquiler a= new Alquiler();
+					a.setNroAlquiler(rs.getInt("nroAlquiler"));
+					a.setUsuarioCliente(rs.getString("usuarioCliente"));
+					a.setNroPatente(rs.getString("nroPatente"));
+					a.setImporte(rs.getFloat("importe"));
+					a.setFechaDesdeAlquiler(rs.getDate("fechaDesdeAlquiler"));
+					a.setFechaHastaAlquiler(rs.getDate("fechaHastaAlquiler"));
+					a.setEstadoAlquiler(rs.getString("estadoAlquiler"));
+					alquileres.add(a);
+				}	
+		} catch (SQLException e) {
+				e.printStackTrace();
+		}
+		finally{
+				try{
+					if(sentencia!=null && !sentencia.isClosed()){sentencia.close();}
+					DataConnectionManager.getInstancia().CloseConn();
+				}
+				catch (SQLException sqle){
+						sqle.printStackTrace();
+				}
+		}
+
+		return alquileres;
+				
+	}
+
+//====================================================================================	
+	
+		public void insertAlquiler(Alquiler alq){
 		
 		String sql="insert into alquileres (usuarioCliente,nroPatente,importe,fechaDesdeAlquiler,fechaHastaAlquiler,estadoAlquiler) values (?,?,?,?,?,?)";
 		PreparedStatement sentencia=null;

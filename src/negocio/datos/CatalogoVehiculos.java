@@ -202,80 +202,6 @@ public class CatalogoVehiculos {
 
 	}
 			
-//====================================================================================		
-	
-	public void insertReparacionTaller(Taller t){
-		
-		String sql="insert into reparaciones (nroPatente,fechaDesdeReparacion,fechaHastaReparacion,direccionTaller) values(?,?,?,?)";
-		PreparedStatement sentencia=null;
-		Connection conn=DataConnectionManager.getInstancia().getConn();
-			
-			
-		try {
-				sentencia=conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				sentencia.setString(1, t.getNroPatente());
-				sentencia.setDate(2, t.getFechaDesdeReparacion());
-				sentencia.setDate(3, t.getFechaHastaReparacion());
-				sentencia.setString(4, t.getDireccion());
-					
-				int filasAfectadas=sentencia.executeUpdate();
-				ResultSet cps= sentencia.getGeneratedKeys();
-				if(cps.next()){
-						
-				}
-
-			
-		} catch (SQLException e) {
-					e.printStackTrace();
-		}
-		finally{
-				try{
-						if(sentencia!=null && !sentencia.isClosed()){sentencia.close();}
-						DataConnectionManager.getInstancia().CloseConn();
-				}
-				catch (SQLException sqle){
-							sqle.printStackTrace();
-				}
-		}
-	}
-
-//====================================================================================
-	
-	public void insertReparacionMecanico(Mecanico m){
-		
-		String sql="insert into reparaciones (nroPatente,fechaDesdeReparacion,fechaHastaReparacion,nombreMecanico) values(?,?,?,?)";
-		PreparedStatement sentencia=null;
-		Connection conn=DataConnectionManager.getInstancia().getConn();
-			
-			
-		try {
-				sentencia=conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				sentencia.setString(1, m.getNroPatente());
-				sentencia.setDate(2, m.getFechaDesdeReparacion());
-				sentencia.setDate(3, m.getFechaHastaReparacion());
-				sentencia.setString(4, m.getNombreMecanico());
-					
-				int filasAfectadas=sentencia.executeUpdate();
-				ResultSet cps= sentencia.getGeneratedKeys();
-				if(cps.next()){
-						
-				}
-
-			
-		} catch (SQLException e) {
-				e.printStackTrace();
-		}
-		finally{
-				try{
-						if(sentencia!=null && !sentencia.isClosed()){sentencia.close();}
-						DataConnectionManager.getInstancia().CloseConn();
-				}
-				catch (SQLException sqle){
-						sqle.printStackTrace();
-				}
-		}
-	}
-
 //====================================================================================	
 
 	public boolean validarReparacion(String nroPat, Date fechaDesde, Date fechaHasta){
@@ -477,88 +403,60 @@ public class CatalogoVehiculos {
 							
 //====================================================================================
 
-	public ArrayList<Taller> getReparacionesTaller() {
+	public ArrayList<Vehiculo> getRepVehiculos(int idCat, Date fechaDesde, Date fechaHasta) {
 			
-		ArrayList<Taller> talleres = new ArrayList<Taller>();
+		ArrayList<Vehiculo> vehiculos= new ArrayList<Vehiculo>();
 
-		String sql= "select * from reparaciones "
-				+ "where nombreMecanico is null "
-				+ "order by fechaDesdeReparacion desc;";
-		PreparedStatement sentencia=null;
-		Connection conn=DataConnectionManager.getInstancia().getConn();
-		ResultSet rs=null;
+		String sql= "select ve.nroPatente, ve.modeloVehiculo from vehiculos ve where ve.idCategoria=? and ve.nroPatente not in ("
+						+ "select distinct v.nroPatente from vehiculos v "
+							+ "inner join alquileres a on a.nroPatente=v.nroPatente "
+							+ "where v.idCategoria=1 "
+							+ "and ( a.estadoAlquiler='agendado' or a.estadoAlquiler='en curso' or a.estadoAlquiler='finalizado') "
+							+ "and a.fechaDesdeAlquiler <= ? and a.fechaHastaAlquiler >= ? "
+							+ "union "
+							+ "select v.nroPatente from vehiculos v "
+							+ "inner join reparaciones r on r.nroPatente=v.nroPatente "
+							+ "where v.idCategoria=? "
+							+ "and r.fechaDesdeReparacion <= ? and r.fechaHastaReparacion >= ?"
+					+ ");";
+			PreparedStatement sentencia=null;
+			Connection conn=DataConnectionManager.getInstancia().getConn();
+			ResultSet rs=null;
 			
-		try {	
-				sentencia=conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				rs = sentencia.executeQuery();
+			try {	
+					sentencia=conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+					sentencia.setInt(1,idCat);
+					sentencia.setDate(2,fechaHasta);
+					sentencia.setDate(3,fechaDesde);
+					sentencia.setInt(4, idCat);
+					sentencia.setDate(5,fechaHasta);
+					sentencia.setDate(6,fechaDesde);
+					rs = sentencia.executeQuery();
 
-				while(rs.next()){
-					Taller t = new Taller();
-					t.setNroPatente(rs.getString("nroPatente"));
-					t.setFechaDesdeReparacion(rs.getDate("fechaDesdeReparacion"));
-					t.setFechaHastaReparacion(rs.getDate("fechaHastaReparacion"));
-					t.setDireccion(rs.getString("direccionTaller"));
-					talleres.add(t);
-				}	
-		} catch (SQLException e) {
-				e.printStackTrace();
-		}
-		finally{
-				try{
-					if(sentencia!=null && !sentencia.isClosed()){sentencia.close();}
-					DataConnectionManager.getInstancia().CloseConn();
-				}
-				catch (SQLException sqle){
-						sqle.printStackTrace();
-				}
-		}
+					while(rs.next()){
+						Vehiculo v = new Vehiculo();
+						v.setNroPatente(rs.getString("nroPatente"));
+						v.setModeloVehiculo(rs.getString("modeloVehiculo"));
+						vehiculos.add(v);
+					}	
+			} catch (SQLException e) {
+					e.printStackTrace();
+			}
+			finally{
+					try{
+						if(sentencia!=null && !sentencia.isClosed()){sentencia.close();}
+						DataConnectionManager.getInstancia().CloseConn();
+					}
+					catch (SQLException sqle){
+							sqle.printStackTrace();
+					}
+			}
 
-		return talleres;
+
+			return vehiculos;
 			
-	}
-
-//====================================================================================
-
-	public ArrayList<Mecanico> getReparacionesMecanicos() {
-				
-		ArrayList<Mecanico> mecanicos = new ArrayList<Mecanico>();
-
-		String sql= "select * from reparaciones "
-				+ "where direccionTaller is null "
-				+ "order by fechaDesdeReparacion desc;";
-		PreparedStatement sentencia=null;
-		Connection conn=DataConnectionManager.getInstancia().getConn();
-		ResultSet rs=null;
-				
-		try {	
-				sentencia=conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				rs = sentencia.executeQuery();
-
-				while(rs.next()){
-					Mecanico m = new Mecanico();
-					m.setNroPatente(rs.getString("nroPatente"));
-					m.setFechaDesdeReparacion(rs.getDate("fechaDesdeReparacion"));
-					m.setFechaHastaReparacion(rs.getDate("fechaHastaReparacion"));
-					m.setNombreMecanico(rs.getString("nombreMecanico"));
-					mecanicos.add(m);
-				}	
-		} catch (SQLException e) {
-				e.printStackTrace();
-		}
-		finally{
-				try{
-					if(sentencia!=null && !sentencia.isClosed()){sentencia.close();}
-					DataConnectionManager.getInstancia().CloseConn();
-				}
-				catch (SQLException sqle){
-						sqle.printStackTrace();
-				}
 		}
 
-		return mecanicos;
-				
-	}
-
-//====================================================================================
+	//====================================================================================
 	
 }

@@ -24,7 +24,7 @@
 <link href="bootstrap/js/bootstrap.npm.js" rel="stylesheet" />
 
 
-<title>Listado de Alquileres</title>
+<title>Vehiculos</title>
 
 <style type="text/css">
     h1{
@@ -78,6 +78,8 @@
 			
 					    <th>Eliminar</th>
 					    
+					    <th>Estado</th>
+					    
 					 </tr>
 		
 			</thead>
@@ -109,6 +111,13 @@
 											<form action="EliminarVehiculo" method="post"> 
 			   								<input type="hidden" name="nroPatente" value=<%=nroPatente%>>
 			   								<input type="submit" class="btn btn-danger" value="Eliminar" />
+			   								</form>
+										</td>
+										
+										<td>
+											<form action="EstadoVehiculo" method="post"> 
+			   								<input type="hidden" name="nroPatente" value=<%=nroPatente%>>
+			   								<input type="submit" class="btn btn-info" value="Estado" />
 			   								</form>
 										</td>
 										

@@ -5,19 +5,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import negocio.datos.CatalogoAlquileres;
 import negocio.datos.CatalogoReparaciones;
 
-
 /**
- * Servlet implementation class ListadoReparaciones
+ * Servlet implementation class EstadoVehiculo
  */
-public class ListadoReparaciones extends HttpServlet {
+public class EstadoVehiculo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListadoReparaciones() {
+    public EstadoVehiculo() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,11 +37,13 @@ public class ListadoReparaciones extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		request.setAttribute("talleres", new CatalogoReparaciones().getReparacionesTaller());
-		request.setAttribute("mecanicos", new CatalogoReparaciones().getReparacionesMecanicos());
-		request.setAttribute("nombresMecanicos", new CatalogoReparaciones().getMecanicos());
+		String nroPat=request.getParameter("nroPatente");
 		
-        getServletContext().getRequestDispatcher("/listadoReparaciones.jsp").forward(request,response);
+		request.setAttribute("talleres", new CatalogoReparaciones().getVehiculoTall(nroPat));
+		request.setAttribute("mecanicos", new CatalogoReparaciones().getVehiculoMec(nroPat));
+		request.setAttribute("alquileres", new CatalogoAlquileres().getVehAlquileres(nroPat));
+		
+        getServletContext().getRequestDispatcher("/estadoVehiculo.jsp").forward(request,response);
 		
 	}
 

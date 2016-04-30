@@ -24,7 +24,7 @@
 <link href="bootstrap/js/bootstrap.npm.js" rel="stylesheet" />
 
 
-<title>Listado de Alquileres</title>
+<title>Reparaciones</title>
 
 <style type="text/css">
     h1{
@@ -45,10 +45,45 @@
 	
 	<% ArrayList <Taller> talleres = (ArrayList<Taller>) request.getAttribute("talleres");
 	   ArrayList <Mecanico> mecanicos = (ArrayList<Mecanico>) request.getAttribute("mecanicos");
+	   ArrayList <Mecanico> nombresMecanicos = (ArrayList<Mecanico>) request.getAttribute("nombresMecanicos");
 	   int sizeT = talleres.size(), sizeM = mecanicos.size(), t = 0, m = 0; 
 	   Date ahora = new Date();
        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
        String fechaActual = formateador.format(ahora);%>
+ 
+<h1>Mecánicos</h1>
+ 
+<table class="table table-bordered" id=tabla>
+
+	<thead>
+
+             <tr>
+
+				<th>Nombre de Mecánicos</th>
+	
+			 </tr>
+
+	</thead>
+
+	<tbody>
+	
+		<ul>
+		
+		<%for(int i=0 ; i<nombresMecanicos.size() ; i++) {%>
+			
+			<tr>
+			
+				<td> <%=nombresMecanicos.get(i).getNombreMecanico()%> </td>
+			 	
+			</tr>
+		
+		<% } %>
+		
+		</ul>
+		
+	</tbody>
+
+</table>
         
 <h1>Listado de Reparaciones</h1>
 

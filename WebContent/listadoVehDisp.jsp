@@ -21,7 +21,7 @@
 <link href="bootstrap/js/bootstrap.min.js" rel="stylesheet" />
 <link href="bootstrap/js/bootstrap.npm.js" rel="stylesheet" />
 
-<title>Listado de Vehiculos</title>
+<title>Vehiculos disponibles</title>
 
 <style type="text/css">
     h1{

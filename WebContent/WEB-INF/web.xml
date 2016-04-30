@@ -419,4 +419,14 @@
     <servlet-name>ListadoReparaciones</servlet-name>
     <url-pattern>/ListadoReparaciones</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EstadoVehiculo</display-name>
+    <servlet-name>EstadoVehiculo</servlet-name>
+    <servlet-class>com.srk.pkg.EstadoVehiculo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EstadoVehiculo</servlet-name>
+    <url-pattern>/EstadoVehiculo</url-pattern>
+  </servlet-mapping>
 </web-app>

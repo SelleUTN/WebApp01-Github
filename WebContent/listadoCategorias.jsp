@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList"  %>
 <%@ page import="negocio.datos.CatalogoCategorias"  %>
 <%@ page import="entidad.Categoria"  %>
+<%@ page import="entidad.Descuento"  %>
 <%@ page import="java.text.SimpleDateFormat"  %>
 <%@ page import="java.util.Date"  %>
 
@@ -23,7 +24,7 @@
 <link href="bootstrap/js/bootstrap.npm.js" rel="stylesheet" />
 
 
-<title>Listado de Alquileres</title>
+<title>Listado de Categorias</title>
 
 <style type="text/css">
     h1{
@@ -44,11 +45,57 @@
 <div class="bs-example" >
 	
 	<% ArrayList <Categoria> categorias = (ArrayList<Categoria>) request.getAttribute("categorias"); 
+	   ArrayList <Descuento> descuentos = (ArrayList<Descuento>) request.getAttribute("descuentos");
 	   int size = categorias.size(); 
 	   Date ahora = new Date();
        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
        String fechaActual = formateador.format(ahora);%>
-        
+
+<h1>Descuentos</h1>
+
+<table class="table table-bordered" id=tabla>
+
+	<thead>
+
+             <tr>
+
+				<th>Descripcion de Descuentos</th>
+	
+			 </tr>
+
+	</thead>
+
+	<tbody>
+	
+		<ul>
+		
+		<%for(int i=1 ; i<descuentos.size() ; i++) {%>
+			
+			<tr>
+			
+				<% if (i==(descuentos.size()-1)) {%>
+				
+				<td> Si el alquiler es mayor de <%=descuentos.get(i).getDiaDesde()%> dias
+			 	se aplicará un descuento de <%=descuentos.get(i).getDescuento()%>% sobre el total</td>
+					
+				<% } else {%>
+				
+				<td>Entre <%=descuentos.get(i).getDiaDesde()%> y <%=descuentos.get(i).getDiaHasta()%> dias de alquiler
+				se aplicará un descuento de <%=descuentos.get(i).getDescuento()%>% sobre el total</td>
+		
+				<% } %>
+			
+			</tr>
+		
+		<% } %>
+		
+		</ul>
+		
+	</tbody>
+
+</table>
+
+
 <h1>Listado de Categorias</h1>
 
 <% if (size==0) { %>

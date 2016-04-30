@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import negocio.datos.CatalogoCategorias;
+import negocio.datos.CatalogoDescuentos;
 
 /**
  * Servlet implementation class ListadoCategorias
@@ -36,6 +37,7 @@ public class ListadoCategorias extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		request.setAttribute("categorias", new CatalogoCategorias().getCategorias());
+		request.setAttribute("descuentos", new CatalogoDescuentos().getDescuentos());
 		
 		getServletContext().getRequestDispatcher("/listadoCategorias.jsp").forward(request,response);
         
