@@ -43,7 +43,7 @@
 	<% ArrayList <Alquiler> alquileres = (ArrayList<Alquiler>) request.getAttribute("alquileres"); 
 	   int size = alquileres.size(); %>
 	    
-<h1>Listado de Alquileres del Cliente</h1>
+<h1>Listado de Alquileres</h1>
 
 <% if (size==0) { %>
 

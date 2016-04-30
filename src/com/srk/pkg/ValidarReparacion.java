@@ -116,12 +116,12 @@ public class ValidarReparacion extends HttpServlet {
 												            				respuesta(request,response);
 												            				break;
 											            				} else {
-												            					if ( !new CatalogoReparaciones().getMecanicoDisp(tipoReparacion,fechaDesde,fechaHasta).isEmpty() ) {
+												            					if ( !new CatalogoReparaciones().getMecanicoDisp(tipoReparacion.toUpperCase(),fechaDesde,fechaHasta).isEmpty() ) {
 												            						request.setAttribute("respuesta", "El mecanico "+tipoReparacion+" no se encuentra disponible en esas fechas"); 
 														            				respuesta(request,response);
 														            				break;
 												            					} else {
-												            						new CatalogoReparaciones().insertReparacionMecanico(new Mecanico(nroPatente,fechaDesde,fechaHasta,tipoReparacion));
+												            						new CatalogoReparaciones().insertReparacionMecanico(new Mecanico(nroPatente.toUpperCase(),fechaDesde,fechaHasta,tipoReparacion));
 												            						getServletContext().getRequestDispatcher("/pagppalGerente.jsp").forward(request,response);
 												            						break;
 												            					}

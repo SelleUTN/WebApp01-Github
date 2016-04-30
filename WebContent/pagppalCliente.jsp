@@ -48,17 +48,17 @@
 			<br>
 			<form action="ListadoCategorias" method="post"> 
 			<input type="hidden" name="usuario" value=<%=request.getAttribute("usuario")%>>
-			<input type="submit" class="btn btn-info" value="Listar Categorias" />
+			<input type="submit" class="btn btn-warning" value="Listar Categorias" />
 			</form>
 			<br>
 			<form action="ListarAlqCliente" method="post"> 
 			<input type="hidden" name="usuario" value=<%=request.getAttribute("usuario")%>>
-			<input type="submit" class="btn btn-info" value="Listar Alquileres" />
+			<input type="submit" class="btn btn-warning" value="Listar Alquileres" />
 			</form>
 			<br>
 			<form action="CambiarCont" method="post"> 
 			<input type="hidden" name="usuario" value=<%=request.getAttribute("usuario")%>>
-			<input type="submit" class="btn btn-warning" value="Cambiar Contraseña" />
+			<input type="submit" class="btn btn-info" value="Cambiar Contraseña" />
 			</form>
 			<br>
 		

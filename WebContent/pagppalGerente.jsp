@@ -38,7 +38,7 @@
 		<div class="bs-example" >
 		
 		    <h1>Sistema</h1>
-			 
+			
 			<form action="RegistrarVehiculo" method="post"> 
 		   	<input type="submit" class="btn btn-success" value="Registrar Vehiculo" />
 		   	</form>
@@ -54,6 +54,8 @@
 		   	</form>
 		   	<br>
 		   	
+		   	<hr/>
+		   	
 		   	<form action="ListarAlqGerente" method="post"> 
 		   	<input type="submit" class="btn btn-warning" value="Listar Alquileres" />
 		   	</form>
@@ -64,7 +66,7 @@
 		   	</form>
 		   	<br>
 		
-		<hr/>
+			<hr/>
 		   	
 		<input type="button" class="btn btn-danger" value="Salir" onclick="location.href='ingresarUsuario.jsp'" />
 		   	

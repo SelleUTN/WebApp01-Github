@@ -59,7 +59,7 @@
 
              <tr>
 
-				<th>Nombre de Mecánicos</th>
+				<th>Mecánicos de la Empresa</th>
 	
 			 </tr>
 
@@ -117,92 +117,60 @@
 	
 		<ul>
 		
-				<% for (int i=0; i<sizeT ; i++) {%>
+	<% while (t<sizeT && m<sizeM) {%>
 				
-					<% for (int j=0; j<sizeM ; j++) {%>
-						
-							<% if ( talleres.get(i).getFechaDesdeReparacion().before(mecanicos.get(j).getFechaDesdeReparacion()) ) {%>
-							<% t++; %>
-							<tr>
-								
-								<td> <%=talleres.get(i).getNroPatente()%> </td>
-							
-								<td> <%=talleres.get(i).getFechaDesdeReparacion()%> </td>
-								
-								<td> <%=talleres.get(i).getFechaHastaReparacion()%> </td>
-								
-								<td> <%=talleres.get(i).getDireccion()%> </td>
-								
-								<td> ------- </td>
-							
-							</tr>
-							
-							<% } else {%>	
-							<% m++; %>
-							<tr>
-								
-								<td> <%=mecanicos.get(j).getNroPatente()%> </td>
-							
-								<td> <%=mecanicos.get(j).getFechaDesdeReparacion()%> </td>
-								
-								<td> <%=mecanicos.get(j).getFechaHastaReparacion()%> </td>
-								
-								<td> ------- </td>
-								
-								<td> <%=mecanicos.get(j).getNombreMecanico()%> </td>
-							
-							</tr>
-							
-							<% } %>
+		<% if (talleres.get(t).getFechaDesdeReparacion().after(mecanicos.get(m).getFechaDesdeReparacion())) {%>
+			<tr>
+				<td> <%= talleres.get(t).getNroPatente() %></td>
+				<td> <%= talleres.get(t).getFechaDesdeReparacion() %></td>
+				<td> <%= talleres.get(t).getFechaHastaReparacion() %></td>
+				<td> <%= talleres.get(t).getDireccion() %></td>
+				<td> ------- </td>
+			</tr>
+		<% t++;} else { %>
+			<tr>	
+				<td> <%= mecanicos.get(m).getNroPatente() %></td>
+				<td> <%= mecanicos.get(m).getFechaDesdeReparacion() %></td>
+				<td> <%= mecanicos.get(m).getFechaHastaReparacion() %></td>
+				<td> ------- </td>
+				<td> <%= mecanicos.get(m).getNombreMecanico() %></td>
+			</tr>	
+		<% m++;} %>
+	
+	
+	<% } %>
+	
+	
+			<% if (m==sizeM) {%>
 			
-				<% } %>
+				<% for (int i=t; i<sizeT; i++) {%>
 					
-			<% } %>
-		
-				<% if (t!=sizeT) {%>
-			
-									<% for (int i=t; i<sizeT; i++) { %>
-									
-										<tr>
-													
-											<td> <%=talleres.get(i).getNroPatente()%> </td>
-												
-											<td> <%=talleres.get(i).getFechaDesdeReparacion()%> </td>
-													
-											<td> <%=talleres.get(i).getFechaHastaReparacion()%> </td>
-													
-											<td> <%=talleres.get(i).getDireccion()%> </td>
-													
-											<td> ------- </td>
-												
-										</tr>
-									
-									<% } %>
-			
-					<% } else {%>
-						
-									<% for (int i=m; i<sizeM; i++) { %>
-							
-										<tr>
-								
-											<td> <%=mecanicos.get(i).getNroPatente()%> </td>
-							
-											<td> <%=mecanicos.get(i).getFechaDesdeReparacion()%> </td>
-								
-											<td> <%=mecanicos.get(i).getFechaHastaReparacion()%> </td>
-								
-											<td> ------- </td>
-								
-											<td> <%=mecanicos.get(i).getNombreMecanico()%> </td>
-							
-										</tr>
-							
-									<% } %>
+					<tr>
+						<td> <%= talleres.get(t).getNroPatente() %></td>
+						<td> <%= talleres.get(t).getFechaDesdeReparacion() %></td>
+						<td> <%= talleres.get(t).getFechaHastaReparacion() %></td>
+						<td> <%= talleres.get(t).getDireccion() %></td>
+						<td> ------- </td>
+					</tr>
 				
-						<% } %>
+				<% } %>
+			
+			<% } else {%>
+			
+				<% for (int i=m; i<sizeM; i++) {%>
+					
+					<tr>	
+						<td> <%= mecanicos.get(m).getNroPatente() %></td>
+						<td> <%= mecanicos.get(m).getFechaDesdeReparacion() %></td>
+						<td> <%= mecanicos.get(m).getFechaHastaReparacion() %></td>
+						<td> ------- </td>
+						<td> <%= mecanicos.get(m).getNombreMecanico() %></td>
+					</tr>
+				
+				<% } %>
 			
 			
-			
+			<% } %>
 		
 		</ul>
 		
@@ -211,6 +179,7 @@
 </table>
 
 <% } %>
+
 <br>
 	<form>
 		<input type="button" class="btn btn-info" value="Volver Atrás" onclick="history.back()" />
