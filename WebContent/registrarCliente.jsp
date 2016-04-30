@@ -54,7 +54,7 @@
 		  <input type="text" name="nombreCliente" placeholder="Solo letras" maxlength="25" autocomplete="off" required>
 		  <br>
 		  Teléfono:<br>
-		  <input type="text" name="telefonoCliente" placeholder="Domicilio o Celular" maxlength="11" autocomplete="off" required>
+		  <input type="text" name="telefonoCliente" placeholder="Fijo o Celular" maxlength="11" autocomplete="off" required>
 		  <br><br>
 		  <input type="submit" class="btn btn-success" value="Registrar" >
 		  <input type="reset" class="btn btn-default" value="Reset" >

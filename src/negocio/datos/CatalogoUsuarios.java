@@ -150,7 +150,6 @@ public class CatalogoUsuarios {
 				sentencia.setString(4,u.getNombre());
 				sentencia.setInt(5,u.getTelefono());
 				sentencia.setString(6,"cliente");
-				rs = sentencia.executeQuery();
 				
 				int filasAfectadas=sentencia.executeUpdate();
 				ResultSet cps= sentencia.getGeneratedKeys();
