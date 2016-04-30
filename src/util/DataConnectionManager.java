@@ -15,13 +15,13 @@ public class DataConnectionManager {
 	}
 
 
-	private static String dbUrl="jdbc:mysql://localhost:3306/Alquiler";
+	/*private static String dbUrl="jdbc:mysql://localhost:3306/Alquiler";
 	private static String dbUser="java";
-	private static String dbPassword="locura";
+	private static String dbPassword="locura";*/
 	
-	/*private static String dbUrl="jdbc:mysql://mariadb14484-webapp01java.underjelastic.com.br/Alquiler";
+	private static String dbUrl="jdbc:mysql://mariadb14484-webapp01java.underjelastic.com.br/Alquiler";
 	private static String dbUser="root";
-	private static String dbPassword="yYcoDsuGWI";*/
+	private static String dbPassword="yYcoDsuGWI";
 
 	private DataConnectionManager(){}
 
