@@ -3,6 +3,7 @@ package validaciones;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import negocio.datos.CatalogoVehiculos;
 
@@ -169,9 +170,24 @@ public class Jarvis {
 	
 	public String validarFechas(Date fechaDesde, Date fechaHasta){
 		
-		String respuesta="";
-		
-			if ( fechaDesde.equals(fechaHasta) ) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    Calendar cal = Calendar.getInstance();
+        String fechaHoyString = sdf.format(cal.getTime());
+        java.util.Date parsed = null;
+        
+        try {
+	        parsed = sdf.parse(fechaHoyString);
+	    } catch (ParseException e1) {
+	        // TODO Auto-generated catch block
+	        e1.printStackTrace();
+	    }
+        java.sql.Date fechaHoySql = new java.sql.Date(parsed.getTime());
+        
+        String respuesta="";
+			
+			if ( fechaDesde.before(fechaHoySql) ) {
+				respuesta="El Alquiler no puede ser registrado en alguna fecha antes de hoy";
+			} else if ( fechaDesde.equals(fechaHasta) ) {
 				 respuesta="Las fechas no pueden ser las mismas";
 			} else if ( !fechaDesde.before(fechaHasta) ) {
 				respuesta="La primer fecha debe ser anterior a la segunda";
