@@ -49,12 +49,12 @@
 	<form action="ValidarModVehiculo" method="post">
 		<input type="hidden" name="nroPatente" value=<%=nroPatente%>> <br>
 		Cambiar Modelo:<br>
-		<input type="text" name="modelo" maxlength="25" autocomplete="off" required> <br>
+		<input type="text" name="modelo" pattern="[A-Za-zñÑ0-9\s]*" title="Ingresar caracteres válidos" maxlength="25" autocomplete="off" required> <br>
 		<br>
-		<input type="submit" class="btn btn-success" value="Registrar" >
+		<input type="submit" class="btn btn-success" value="Modificar" >
 	</form>
 
-	<br>
+	<br><br>
 
 	<form>
 		<input type="button" class="btn btn-info" value="Volver Atrás" onclick="history.back()" />

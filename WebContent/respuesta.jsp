@@ -39,10 +39,13 @@
 	
 		<div class="bs-example" >
 		
-			<h1> Error: <%= request.getAttribute("respuesta") %> </h1>
+			<h1> Error </h1>
+		   	<h2> <%= request.getAttribute("respuesta") %> </h2>
+		   	<br>
 		   	<form>
 			<input type="button" class="btn btn-info" value="Volver Atrás" onclick="history.back()" />
 			</form>
+		
 		</div>   	
 	
 	</body>

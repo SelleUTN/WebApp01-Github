@@ -63,7 +63,7 @@ public class ValidarVehiculo extends HttpServlet {
 					
 					}// Id correcto 
 					
-					else if (!modeloVehiculo.matches("[a-zA-Z0-9]*") || modeloVehiculo.length()>45) {
+					else if (!modeloVehiculo.matches("[a-zA-Z0-9\\s]*") || modeloVehiculo.length()>45) {
 						request.setAttribute("respuesta", "El campo Modelo debe tener letras y/o numeros"); 
 						respuesta(request,response);
 					

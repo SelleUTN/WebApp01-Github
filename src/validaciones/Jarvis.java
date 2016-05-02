@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.*;
+import javax.activation.*;
 
 import negocio.datos.CatalogoVehiculos;
 
@@ -130,8 +132,8 @@ public class Jarvis {
 				respuesta="El campo DNI debe contener solo 8 numeros";
 			} else if ( !nom.matches("[a-zA-Z\\s]*") || nom.length()>25 ) {
 				respuesta="El campo Nombre debe contener solo letras";
-			} else if ( !tel.matches("[0-9]*") || tel.length()<6 || tel.length()>11 ) {
-				respuesta="El campo Telefono debe contener solo numeros (domicilio o celular)";
+			} else if ( !tel.matches("[0-9]*") || tel.length()<7 || tel.length()>12 ) {
+				respuesta="El campo Telefono debe contener solo numeros (fijo o celular)";
 			} else { respuesta="valido"; }
 			
 		return respuesta;
@@ -253,7 +255,7 @@ public class Jarvis {
 				
 					switch (op) {
 		            
-					case 1: if ( !tipo.matches("[a-zA-Z]{4,20}+\\s?+[0-9]{1,4}") ) {
+					case 1: if ( !tipo.matches("[a-zA-Z\\s]{4,20}+\\s?+[0-9]{1,4}") ) {
 								respuesta="Ingresar direccion valida";
 							} else {
 								respuesta="Taller";
@@ -279,5 +281,6 @@ public class Jarvis {
 		return respuesta;
 	
 	}
+
 	
 }

@@ -40,13 +40,13 @@
 	 <form action="AplicarNuevaCont" method="post">
 		  <input type="hidden" name="usuario" value=<%=request.getAttribute("usuario")%>>
 		  Contraseña Actual:<br>
-		  <input type="password" name="contActual" required>
+		  <input type="password" name="contActual" pattern="[A-Za-zñÑ0-9]{6,20}" title="Mínimo 6 numeros/letras (sin acentos)" placeholder="Solo letras y/o numeros" maxlength="20" autocomplete="off" required>
 		  <br><br>
 		  Contraseña Nueva:<br>
-		  <input type="password" name="contNueva" required>
+		  <input type="password" name="contNueva" pattern="[A-Za-zñÑ0-9]{6,20}" title="Mínimo 6 numeros/letras (sin acentos)" placeholder="Solo letras y/o numeros" maxlength="20" autocomplete="off" required>
 		  <br><br>
 		  Confirmar Nueva Contraseña:<br>
-		  <input type="password" name="contConfirmar" required>
+		  <input type="password" name="contConfirmar" pattern="[A-Za-zñÑ0-9]{6,20}" title="Mínimo 6 numeros/letras (sin acentos)" placeholder="Solo letras y/o numeros" maxlength="20" autocomplete="off" required>
 		  <br><br>
 		  <input type="submit" class="btn btn-success" value="Cambiar" >
 		  <input type="reset" class="btn btn-default" value="Reset" >

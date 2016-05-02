@@ -59,7 +59,7 @@
 <form action="ValidarReparacion" method="post">
   
   Patente:<br>
-  <input type="text" name="nroPatente" maxlength="6" autocomplete="off" required> <br>
+  <input type="text" name="nroPatente" pattern="[a-zA-Z]{3}[0-9]{3}" title="Formato incorrecto" placeholder="Ejemplo: FAQ349" maxlength="6" autocomplete="off" required> <br>
   <br>
   Fecha Desde:<br>
   <input type="text" id="datepicker1" name="fechaDesdeReparacion" onpaste="return false" oncut="return false" oncopy="return false" autocomplete="off" /> <br>
@@ -72,7 +72,7 @@
        <option value="2" selected="selected">Mecanico</option>
        <option value="1">Taller</option>
   </select>
-  <input type="text" name="tipoReparacion" maxlength="25" autocomplete="off" required> <br>
+  <input type="text" name="tipoReparacion" pattern="[A-Za-zñÑ0-9\s]*" title="Solo letras y/o numeros" placeholder="Solo letras y/o numeros" maxlength="25" autocomplete="off" required> <br>
   <br>
 
 <input type="submit" class="btn btn-success" value="Registrar" >

@@ -74,11 +74,11 @@
 			
 					    <th WIDTH="250">Modelo</th>
 					    
-					    <th>Modificar</th>
-			
-					    <th>Eliminar</th>
-					    
 					    <th>Estado</th>
+			
+					    <th>Modificar</th>
+					    
+					    <th>Eliminar</th>
 					    
 					 </tr>
 		
@@ -100,6 +100,14 @@
 										
 										<td> <%=vehiculos.get(j).getModeloVehiculo()%> </td>
 										
+										
+										<td>
+											<form action="EstadoVehiculo" method="post"> 
+			   								<input type="hidden" name="nroPatente" value=<%=nroPatente%>>
+			   								<input type="submit" class="btn btn-info" value="Estado" />
+			   								</form>
+										</td>
+										
 										<td>
 											<form action="ModificarVehiculo" method="post"> 
 			   								<input type="hidden" name="nroPatente" value=<%=nroPatente%>>
@@ -114,12 +122,7 @@
 			   								</form>
 										</td>
 										
-										<td>
-											<form action="EstadoVehiculo" method="post"> 
-			   								<input type="hidden" name="nroPatente" value=<%=nroPatente%>>
-			   								<input type="submit" class="btn btn-info" value="Estado" />
-			   								</form>
-										</td>
+										
 										
 									</tr>
 						

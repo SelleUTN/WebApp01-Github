@@ -46,16 +46,18 @@
 			<input type="submit" class="btn btn-success" value="Nuevo Alquiler" />
 			</form>
 			<br>
-			<form action="ListadoCategorias" method="post"> 
-			<input type="hidden" name="usuario" value=<%=request.getAttribute("usuario")%>>
-			<input type="submit" class="btn btn-warning" value="Listar Categorias" />
-			</form>
-			<br>
 			<form action="ListarAlqCliente" method="post"> 
 			<input type="hidden" name="usuario" value=<%=request.getAttribute("usuario")%>>
 			<input type="submit" class="btn btn-warning" value="Listar Alquileres" />
 			</form>
-			<br>
+			
+			<hr/>
+			<form action="ListadoCategorias" method="post"> 
+			<input type="hidden" name="usuario" value=<%=request.getAttribute("usuario")%>>
+			<input type="submit" class="btn btn-warning" value="Listar Categorias" />
+			</form>
+			
+			<hr/>
 			<form action="CambiarCont" method="post"> 
 			<input type="hidden" name="usuario" value=<%=request.getAttribute("usuario")%>>
 			<input type="submit" class="btn btn-info" value="Cambiar Contraseña" />
