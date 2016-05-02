@@ -69,7 +69,7 @@
 	
 		<ul>
 		
-		<%for(int i=0 ; i<descuentos.size() ; i++) {%>
+		<%for(int i=1 ; i<descuentos.size() ; i++) {%>
 			
 			<tr>
 			
