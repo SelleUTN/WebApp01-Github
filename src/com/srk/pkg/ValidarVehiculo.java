@@ -63,27 +63,33 @@ public class ValidarVehiculo extends HttpServlet {
 					
 					}// Id correcto 
 					
-					else if (!modeloVehiculo.matches("[a-zA-Z0-9\\s]*") || modeloVehiculo.length()>45) {
-						request.setAttribute("respuesta", "El campo Modelo debe tener letras y/o numeros"); 
-						respuesta(request,response);
-					
-					} else {
-						// Patente y modelo con formato correcto
-						if ( !new CatalogoVehiculos().getVehiculo(nroPatente).isEmpty() ) {
-							request.setAttribute("respuesta", "El vehiculo ingresado existe en el sistema"); 
-							respuesta(request,response); 
-							
-						} else {
-							// El vehiculo no se encuentra en el sistema, asi que puede ser registrado
-							new CatalogoVehiculos().insertVehiculo(nroPatente, idCategoria);
-							
-							getServletContext().getRequestDispatcher("/pagppalGerente.jsp").forward(request,response);
-							
-						}// El vehiculo no se encuentra en el sistema, asi que puede ser registrado
+					else {
 						
-					}// Patente con formato correcto
+						String resp6 = j.validarModelo(modeloVehiculo);
+						
+						if (resp6.compareTo("valido")!=0){
+							request.setAttribute("respuesta", resp6); 
+							respuesta(request,response);
+						// Patente con formato correcto
+						} else {
+							
+							if ( !new CatalogoVehiculos().getVehiculo(nroPatente).isEmpty() ) {
+								request.setAttribute("respuesta", "El vehiculo ingresado existe en el sistema"); 
+								respuesta(request,response); 
+								// Modelo con formato correcto	
+							} else {
+								// El vehiculo no se encuentra en el sistema, asi que puede ser registrado
+								//new CatalogoVehiculos().insertVehiculo(nroPatente, idCategoria);
+								
+								getServletContext().getRequestDispatcher("/pagppalGerente.jsp").forward(request,response);
+								
+							}// El vehiculo no se encuentra en el sistema, asi que puede ser registrado
+							
+						}// Patente con formato correcto
+						
+					}// Modelo con formato correcto	
 					
-			}// Campos completos	
+		}// Campos completos	
 		
 	}
 

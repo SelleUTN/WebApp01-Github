@@ -5,24 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.*;
-
-import javax.activation.*;
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-
-import java.util.Properties;
-
-import negocio.datos.CatalogoVehiculos;
+import java.util.regex.Pattern;
 
 public class Jarvis {
 
@@ -77,24 +60,6 @@ public class Jarvis {
 	    
 	}
 	
-	/*public java.sql.Date fechaHastaSQL (String date2) {
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-	    
-		java.util.Date parsed = null;
-	    try {
-	        parsed = sdf.parse(date2);
-	    } catch (ParseException e1) {
-	        // TODO Auto-generated catch block
-	        e1.printStackTrace();
-	    }
-	    
-	    java.sql.Date fechaHasta = new java.sql.Date(parsed.getTime());
-	    
-	    return fechaHasta;
-	    
-	}*/
-	
 	public java.sql.Date fechaDesdeaSQL (String date1){
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -135,19 +100,19 @@ public class Jarvis {
 		
 		String respuesta="";
 		
-			if ( !usu.matches("[a-zA-Z0-9]*") || usu.length()<6 || usu.length()>20) {
-				respuesta="El campo Usario debe tener entre 6 y 20 caracteres (solo numeros y/o letras)";
-			} else if ( !cont.matches("[a-zA-Z0-9]*") || cont.length()<6 || cont.length()>20) {
+			if ( !Pattern.matches("[\\wñÑáéíóú]{6,20}",usu) ) {
+				respuesta="El campo Usario debe tener entre 6 y 20 caracteres (numeros y/o letras)";
+			} else if ( !Pattern.matches("[a-zA-Z0-9ñÑáéíóú]{6,20}",cont) ) {
 				respuesta="El campo Contraseña debe tener entre 6 y 20 caracteres (numeros y/o letras)";
-			} else if ( !conf.matches("[a-zA-Z0-9]*") || conf.length()<6 || cont.length()>20) {
+			} else if ( !Pattern.matches("[a-zA-Z0-9ñÑáéíóú]{6,20}",conf) ) {
 				respuesta="El campo Repetir contraseña debe tener entre 6 y 20 caracteres (numeros y/o letras)";
 			} else if ( cont.compareTo(conf)!=0  ) {
 				respuesta="Las contraseñas deben ser iguales";
-			} else if ( !dni.matches("[0-9]*") || dni.length()!=8 ) {
+			} else if ( !Pattern.matches("\\d{8}",dni) ) {
 				respuesta="El campo DNI debe contener solo 8 numeros";
-			} else if ( !nom.matches("[a-zA-Z\\s]*") || nom.length()>25 ) {
+			} else if ( !Pattern.matches("[a-zA-ZñÑáéíóú\\s]{1,25}",nom) ) {
 				respuesta="El campo Nombre debe contener solo letras";
-			} else if ( !tel.matches("[0-9]*") || tel.length()<7 || tel.length()>13 ) {
+			} else if ( !Pattern.matches("\\d{7,9}",tel) ) {
 				respuesta="El campo Telefono debe contener solo numeros (fijo o celular)";
 			} else { respuesta="valido"; }
 			
@@ -159,9 +124,9 @@ public class Jarvis {
 		
 		String respuesta="";
 		
-			if ( !usu.matches("[a-zA-Z0-9]*") || usu.length()<6 || usu.length()>20 ) {
+			if ( !Pattern.matches("[\\wñÑáéíóú]{6,20}",usu) ) {
 				respuesta="El campo Usuario debe tener entre 6 y 20 caracteres en total (numeros y/o letras)";
-			} else if ( !cont.matches("[a-zA-Z0-9]*") || cont.length()<6 || usu.length()>20 ) {
+			} else if ( !Pattern.matches("[a-zA-Z0-9ñÑáéíóú]{6,20}",cont) ) {
 				respuesta="El campo Contraseña debe tener entre 6 y 20 caracteres en total (numeros y/o letras)";
 			} else { respuesta="valido"; }
 			
@@ -173,9 +138,9 @@ public class Jarvis {
 		
 		String respuesta="";
 		
-			if ( !contActual.matches("[a-zA-Z0-9]*") || contActual.length()<6 || contActual.length()>20||
-				 !contNueva.matches("[a-zA-Z0-9]*") || contNueva.length()<6 || contActual.length()>20||	
-				 !contConf.matches("[a-zA-Z0-9]*") || contConf.length()<6 || contActual.length()>20) {
+			if ( !Pattern.matches("[a-zA-Z0-9ñÑáéíóú]{6,20}",contActual) ||
+				 !Pattern.matches("[a-zA-Z0-9ñÑáéíóú]{6,20}",contNueva) ||	
+				 !Pattern.matches("[a-zA-Z0-9ñÑáéíóú]{6,20}",contConf) ) {
 				 respuesta="Las Contraseñas deben tener entre 6 y 20 caracteres en total (numeros y/o letras)";
 			} else if ( contConf.compareTo(contNueva)!=0 ) {
 				respuesta="Confirmar correctamente la nueva contraseña";
@@ -218,16 +183,10 @@ public class Jarvis {
 		
 		String respuesta="";
 			
-			if ( !pat.matches("[a-zA-Z]{3}+[0-9]{3}") ) {
+			if ( !Pattern.matches("[a-zA-Z]{3}+[0-9]{3}",pat) ) {
 				respuesta="La patente debe tener 3 numeros y luego 3 letras ejemplo: FAQ232";
 			} else { respuesta="valido"; }
 			
-			/*if ( pat.length()!=6 ) {
-				respuesta="La patente debe contener solo 6 caracteres (numeros y letras)";
-			} else if ( !pat.matches("[a-zA-Z0-9]*") ) {
-				respuesta="La patente debe contener solo numeros y letras";
-			} else */
-		
 		return respuesta;
 	
 	}
@@ -270,16 +229,16 @@ public class Jarvis {
 				
 					switch (op) {
 		            
-					case 1: if ( !tipo.matches("[a-zA-Z\\s]{4,20}+\\s?+[0-9]{1,4}") ) {
-								respuesta="Ingresar direccion valida";
+					case 1: if ( !Pattern.matches("[a-zA-Z\\s]{4,20}+\\s?+[0-9]{1,4}",tipo) ) {
+								respuesta="Ingresar direccion valida, ejemplo: Italia 1455";
 							} else {
 								respuesta="Taller";
 							}
 		                     
 							break;
 		            
-					case 2: if ( !tipo.matches("[a-zA-Z]*") ) {
-								respuesta="El nombre del Mecanico debe contener solo letras";
+					case 2: if ( !Pattern.matches("[a-zA-Z]{1,20}",tipo) ) {
+								respuesta="El nombre del Mecanico debe contener solo letras, sin espacios";
 							} else {
 								respuesta="Mecanico"; 
 							}
@@ -292,6 +251,18 @@ public class Jarvis {
 					}
 			
 			}
+			
+		return respuesta;
+	
+	}
+
+	public String validarModelo(String mod) {
+		
+		String respuesta="";
+			
+			if ( !Pattern.matches("[\\wñÑáéíóú\\s]{1,25}",mod) ) {
+				respuesta="El campo Modelo debe tener letras y/o numeros";
+			} else { respuesta="valido"; }
 			
 		return respuesta;
 	

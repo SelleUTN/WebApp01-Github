@@ -72,7 +72,7 @@
        <option value="2" selected="selected">Mecanico</option>
        <option value="1">Taller</option>
   </select>
-  <input type="text" name="tipoReparacion" pattern="[A-Za-zñÑ0-9\s]*" title="Solo letras y/o numeros" placeholder="Solo letras y/o numeros" maxlength="25" autocomplete="off" required> <br>
+  <input type="text" name="tipoReparacion" size="28" pattern="[a-zA-Z0-9ñÑáéíóú\s]{1,25}" title="Solo letras y/o numeros" placeholder="Nombre Mecanico o direccion Taller" maxlength="25" autocomplete="off" required> <br>
   <br>
 
 <input type="submit" class="btn btn-success" value="Registrar" >

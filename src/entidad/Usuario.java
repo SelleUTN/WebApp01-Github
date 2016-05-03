@@ -50,7 +50,7 @@ public class Usuario {
 		
 	}
 	
-	public Usuario(int d, String u,String n, String c, int t){
+	public Usuario(int d, String u,String c, String n, int t){
 		dniUsuario = d;
 		usuarioUsuario = u;
 		contraseñaUsuario = c;
@@ -58,7 +58,7 @@ public class Usuario {
 		telefonoUsuario = t;
 	}
 	
-	public Usuario(int d, String u,String n, String c, int t, String r){
+	public Usuario(int d, String u,String c, String n, int t, String r){
 		dniUsuario = d;
 		usuarioUsuario = u;
 		contraseñaUsuario = c;

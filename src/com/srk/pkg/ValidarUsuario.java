@@ -2,7 +2,8 @@ package com.srk.pkg;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +45,13 @@ public class ValidarUsuario extends HttpServlet {
 		String usuario = request.getParameter("usuario");
 		String cont = request.getParameter("cont");
 		
+		/*boolean usuario1 = Pattern.matches("[a-zA-Z]{3}+[0-9]{3}","ar3a22");
+		System.out.println(usuario1);
+		boolean letras = Pattern.matches("[a-zA-ZñÑáéíóú\\s]{1,25}","ññÑÑa 8asd pablo");
+		boolean numeros = Pattern.matches("\\d{7,13}","5493416684434");
+		System.out.println("nombre "+letras);
+		System.out.println("telefono "+numeros);*/
+			
 			if ( usuario.isEmpty() || cont.isEmpty() ){
 				request.setAttribute("respuesta", "Completar campos vacíos"); 
 				respuesta(request,response);

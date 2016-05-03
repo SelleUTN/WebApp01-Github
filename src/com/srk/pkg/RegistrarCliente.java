@@ -69,9 +69,9 @@ public class RegistrarCliente extends HttpServlet {
 							catusu.insertCliente(new Usuario(
 									Integer.parseInt(dniCliente),
 									usuarioCliente,
-									nombreCliente,
 									contCliente,
-									Integer.parseInt(telefonoCliente) )
+									nombreCliente,
+									Integer.parseInt(telefonoCliente))
 									);
 							
 							getServletContext().getRequestDispatcher("/ingresarUsuario.jsp").forward(request,response);
