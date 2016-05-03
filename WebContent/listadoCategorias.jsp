@@ -110,6 +110,8 @@
 
             <tr>
 
+				<th>ID Categoría</th>
+
 				<th>Descripcion</th>
 	
 			    <th>Precio x dia</th>
@@ -127,6 +129,8 @@
 			
 			<tr>
 			
+				<td> <%=categorias.get(i).getIdCategoria()%> </td>
+				
 				<td> <%=categorias.get(i).getDescripcionCategoria()%> </td>
 				
 				<td> <%=categorias.get(i).getPrecioCategoria()%> </td>

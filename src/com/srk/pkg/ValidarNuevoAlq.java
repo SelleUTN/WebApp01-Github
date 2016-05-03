@@ -82,6 +82,8 @@ public class ValidarNuevoAlq extends HttpServlet {
 					// Las fechas fueron ingresadas correctamente
 						request.setAttribute("vehiculosDisp", new CatalogoVehiculos().getVehiculosDisp(Integer.parseInt(idCategoria), fechaDesde, fechaHasta));
 			    		
+						request.setAttribute("descuento", new CatalogoDescuentos().obtenerPorcentaje(fechaDesde, fechaHasta) );
+						
 			    		request.setAttribute("Alquiler", new Alquiler( 
 			    					request.getParameter("usuario"), fechaDesde, fechaHasta, 
 			    					new CatalogoCategorias().getPrecio(Integer.parseInt(idCategoria)), 

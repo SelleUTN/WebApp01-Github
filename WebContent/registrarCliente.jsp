@@ -54,7 +54,7 @@
 		  <input type="text" name="nombreCliente" pattern="[A-Za-z]*" title="Solo letras (sin acentos)" placeholder="Solo letras" maxlength="25" autocomplete="off" required>
 		  <br>
 		  Teléfono:<br>
-		  <input type="text" name="telefonoCliente" pattern="[0-9]{7,12}" title="Solo numeros" placeholder="Fijo o Celular" maxlength="12" autocomplete="off" required>
+		  <input type="text" name="telefonoCliente" pattern="[0-9]{7,13}" title="Solo numeros" placeholder="Fijo o Celular" maxlength="13" autocomplete="off" required>
 		  <br><br>
 		  <input type="submit" class="btn btn-success" value="Registrar" >
 		  <input type="reset" class="btn btn-default" value="Reset" >

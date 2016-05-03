@@ -2,11 +2,16 @@ package entidad;
 
 import java.sql.Date;
 
+
 public class Reparacion {
 	
 	String nroPatente;
 	Date fechaDesdeReparacion;
 	Date fechaHastaReparacion;
+	
+	public String getTipoReparacion() {
+		return "Ni Mecanico ni Taller asignado";
+	}
 	
 	public String getNroPatente() {
 		return nroPatente;
@@ -36,5 +41,6 @@ public class Reparacion {
 		fechaDesdeReparacion = fd;
 		fechaHastaReparacion = fh;
 	}
+	
 	
 }

@@ -6,6 +6,10 @@ public class Taller extends Reparacion {
 	
 	String direccion;
 	
+	public String getTipoReparacion() {
+		return direccion;
+	}
+	
 	public String getDireccion() {
 		return direccion;
 	}

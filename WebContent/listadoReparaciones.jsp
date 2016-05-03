@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"  %>
 <%@ page import="negocio.datos.CatalogoVehiculos"  %>
-<%@ page import="entidad.Taller"  %>
+<%@ page import="entidad.Reparacion"  %>
 <%@ page import="entidad.Mecanico"  %>
 <%@ page import="java.text.SimpleDateFormat"  %>
 <%@ page import="java.util.Date"  %>
@@ -43,10 +43,8 @@
 
 <div class="bs-example" >
 	
-	<% ArrayList <Taller> talleres = (ArrayList<Taller>) request.getAttribute("talleres");
-	   ArrayList <Mecanico> mecanicos = (ArrayList<Mecanico>) request.getAttribute("mecanicos");
+	<% ArrayList <Reparacion> reparaciones = (ArrayList<Reparacion>) request.getAttribute("reparaciones");
 	   ArrayList <Mecanico> nombresMecanicos = (ArrayList<Mecanico>) request.getAttribute("nombresMecanicos");
-	   int sizeT = talleres.size(), sizeM = mecanicos.size(), t = 0, m = 0; 
 	   Date ahora = new Date();
        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
        String fechaActual = formateador.format(ahora);%>
@@ -87,7 +85,7 @@
         
 <h1>Listado de Reparaciones</h1>
 
-<% if (sizeT==0 && sizeM==0) { %>
+<% if (reparaciones.size()==0) { %>
 
 <h2>No hay reparaciones registradas</h2>
 
@@ -105,10 +103,8 @@
 			    
 			    <th>Fecha Hasta</th>
 			    
-			    <th>Direccion de Taller Mecanico</th>
+			    <th>Reparacion asignada a</th>
 			    
-			    <th>Mecanico a cargo</th>
-			   
 			</tr>
 
 	</thead>
@@ -117,60 +113,18 @@
 	
 		<ul>
 		
-	<% while (t<sizeT && m<sizeM) {%>
-				
-		<% if (talleres.get(t).getFechaDesdeReparacion().after(mecanicos.get(m).getFechaDesdeReparacion())) {%>
+		<% for (int i=0; i<reparaciones.size(); i++) {%>
+		
 			<tr>
-				<td> <%= talleres.get(t).getNroPatente() %></td>
-				<td> <%= talleres.get(t).getFechaDesdeReparacion() %></td>
-				<td> <%= talleres.get(t).getFechaHastaReparacion() %></td>
-				<td> <%= talleres.get(t).getDireccion() %></td>
-				<td> ------- </td>
+			
+				<td> <%= reparaciones.get(i).getNroPatente() %> </td>
+				<td> <%= reparaciones.get(i).getFechaDesdeReparacion() %> </td>
+				<td> <%= reparaciones.get(i).getFechaHastaReparacion() %> </td>
+				<td> <%= reparaciones.get(i).getTipoReparacion() %> </td>
+			
 			</tr>
-		<% t++;} else { %>
-			<tr>	
-				<td> <%= mecanicos.get(m).getNroPatente() %></td>
-				<td> <%= mecanicos.get(m).getFechaDesdeReparacion() %></td>
-				<td> <%= mecanicos.get(m).getFechaHastaReparacion() %></td>
-				<td> ------- </td>
-				<td> <%= mecanicos.get(m).getNombreMecanico() %></td>
-			</tr>	
-		<% m++;} %>
-	
-	
-	<% } %>
-	
-	
-			<% if (m==sizeM) {%>
-			
-				<% for (int i=t; i<sizeT; i++) {%>
-					
-					<tr>
-						<td> <%= talleres.get(t).getNroPatente() %></td>
-						<td> <%= talleres.get(t).getFechaDesdeReparacion() %></td>
-						<td> <%= talleres.get(t).getFechaHastaReparacion() %></td>
-						<td> <%= talleres.get(t).getDireccion() %></td>
-						<td> ------- </td>
-					</tr>
-				
-				<% } %>
-			
-			<% } else {%>
-			
-				<% for (int i=m; i<sizeM; i++) {%>
-					
-					<tr>	
-						<td> <%= mecanicos.get(m).getNroPatente() %></td>
-						<td> <%= mecanicos.get(m).getFechaDesdeReparacion() %></td>
-						<td> <%= mecanicos.get(m).getFechaHastaReparacion() %></td>
-						<td> ------- </td>
-						<td> <%= mecanicos.get(m).getNombreMecanico() %></td>
-					</tr>
-				
-				<% } %>
-			
-			
-			<% } %>
+		
+		<% } %>
 		
 		</ul>
 		

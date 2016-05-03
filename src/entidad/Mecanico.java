@@ -6,6 +6,10 @@ public class Mecanico extends Reparacion {
 
 	String nombreMecanico;
 	
+	public String getTipoReparacion() {
+		return nombreMecanico;
+	}
+	
 	public String getNombreMecanico() {
 		return nombreMecanico;
 	}

@@ -42,7 +42,7 @@
 <div class="bs-example" >
 	
 	<% ArrayList <Vehiculo> vehiculos = (ArrayList<Vehiculo>) request.getAttribute("vehiculosDisp"); %>
-	<% Alquiler a = (Alquiler) request.getAttribute("Alquiler"); %> 
+	<% Alquiler a = (Alquiler) request.getAttribute("Alquiler"); %>
 	<% int cantDisp = vehiculos.size(); %>
 
 <% if (cantDisp == 0) { %>
@@ -66,7 +66,7 @@
 				
 				<th>Hasta</th>
 				
-				<th bgcolor= "#FE2E2E">Importe</th>
+				<th bgcolor= "#FE2E2E" width="250">Importe</th>
 
             </tr>
 
@@ -81,7 +81,16 @@
 			<td> <%=a.getUsuarioCliente()%> </td>
 			<td> <%=a.getFechaDesdeAlquiler()%> </td>
 			<td> <%=a.getFechaHastaAlquiler()%> </td>
-			<td bgcolor= "#FE2E2E"> <%=a.getImporte()%> </td>
+			
+			<% if ( request.getAttribute("descuento").toString().equals("0") ) { %>
+			
+			<td bgcolor= "#FE2E2E"> <%=a.getImporte()%> sin descuento</td>
+			
+			<% } else {%>
+			
+			<td bgcolor= "#FE2E2E"> <%=a.getImporte()%> el <%= request.getAttribute("descuento") %>% aplicado</td>
+			
+			<% } %>
 			
 			</tr>
 		
