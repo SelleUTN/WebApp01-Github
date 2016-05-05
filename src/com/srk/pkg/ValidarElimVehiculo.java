@@ -37,12 +37,13 @@ public class ValidarElimVehiculo extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		String nroPatente = request.getParameter("nroPatente");
+		CatalogoVehiculos catveh = new CatalogoVehiculos();
 		
-		if ( !(new CatalogoVehiculos().validarEliminacion(nroPatente).isEmpty()) ) {
-			request.setAttribute("respuesta", "El vehiculo tiene al menos un alquiler/reparacion pendiente"); 
+		if ( !catveh.validarEliminacion(nroPatente).isEmpty() ) {
+			request.setAttribute("respuesta", "El vehiculo tiene al menos un alquiler o reparacion pendiente"); 
 			respuesta(request,response);
 		} else {
-			new CatalogoVehiculos().eliminarVehiculo(nroPatente);
+			catveh.eliminarVehiculo(nroPatente);
 		
 			getServletContext().getRequestDispatcher("/pagppalGerente.jsp").forward(request,response);
 		}

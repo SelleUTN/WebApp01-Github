@@ -12,7 +12,6 @@ import entidad.Alquiler;
 import entidad.Categoria;
 import entidad.Mecanico;
 import entidad.Reparacion;
-import entidad.Socio;
 import entidad.Taller;
 import entidad.Usuario;
 import entidad.Vehiculo;

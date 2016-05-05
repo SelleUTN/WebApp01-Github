@@ -70,17 +70,4 @@ public class Alquiler {
 		fechaHastaAlquiler = fh;
 	}
 	
-	public Alquiler(String u, Date fd, Date fh, float precioCat, int desc){
-		usuarioCliente = u;
-		fechaDesdeAlquiler = fd;
-		fechaHastaAlquiler = fh;
-		estadoAlquiler = "agendado";
-		
-		long diferencia = ( fh.getTime() - fd.getTime() );
-	    float dias = (float)Math.floor(diferencia / (1000 * 60 * 60 * 24));
-	    
-	    importe = dias*precioCat - ((dias*precioCat)*desc/100);
-		
-	}
-	
 }

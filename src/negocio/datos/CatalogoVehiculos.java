@@ -12,7 +12,6 @@ import entidad.Alquiler;
 import entidad.Categoria;
 import entidad.Mecanico;
 import entidad.Reparacion;
-import entidad.Socio;
 import entidad.Taller;
 import entidad.Usuario;
 import entidad.Vehiculo;
@@ -65,14 +64,14 @@ public class CatalogoVehiculos {
 		String sql= "select ve.nroPatente, ve.modeloVehiculo from vehiculos ve where ve.idCategoria=? and ve.nroPatente not in ("
 						+ "select distinct v.nroPatente from vehiculos v "
 						+ "inner join alquileres a on a.nroPatente=v.nroPatente "
-						+ "where v.idCategoria=1 "
-						+ "and ( a.estadoAlquiler='agendado' or a.estadoAlquiler='en curso' or a.estadoAlquiler='finalizado') "
-						+ "and a.fechaDesdeAlquiler <= ? and a.fechaHastaAlquiler >= ? "
+						+ "where v.idCategoria=? "
+						+ "and ( a.estadoAlquiler='agendado' or a.estadoAlquiler='en curso' or a.estadoAlquiler='abonado') "
+						+ "and a.fechaDesdeAlquiler <=? and a.fechaHastaAlquiler >=? "
 						+ "union "
 						+ "select v.nroPatente from vehiculos v "
 						+ "inner join reparaciones r on r.nroPatente=v.nroPatente "
 						+ "where v.idCategoria=? "
-						+ "and r.fechaDesdeReparacion <= ? and r.fechaHastaReparacion >= ?"
+						+ "and r.fechaDesdeReparacion <=? and r.fechaHastaReparacion >=?"
 				+ ");";
 		PreparedStatement sentencia=null;
 		Connection conn=DataConnectionManager.getInstancia().getConn();
@@ -81,11 +80,12 @@ public class CatalogoVehiculos {
 		try {	
 				sentencia=conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				sentencia.setInt(1,idCat);
-				sentencia.setDate(2,fechaHasta);
-				sentencia.setDate(3,fechaDesde);
-				sentencia.setInt(4, idCat);
-				sentencia.setDate(5,fechaHasta);
-				sentencia.setDate(6,fechaDesde);
+				sentencia.setInt(2, idCat);
+				sentencia.setDate(3,fechaHasta);
+				sentencia.setDate(4,fechaDesde);
+				sentencia.setInt(5, idCat);
+				sentencia.setDate(6,fechaHasta);
+				sentencia.setDate(7,fechaDesde);
 				rs = sentencia.executeQuery();
 
 				while(rs.next()){
@@ -114,11 +114,13 @@ public class CatalogoVehiculos {
 
 //====================================================================================
 
-	public Vehiculo getVehiculoDisp(String nroPat, Date fechaDesde, Date fechaHasta) {
+	public String getVehiculoDisp(String nroPat, Date fechaDesde, Date fechaHasta) {
+		
+		String nroPatente="";
 		
 		String sql= "select nroPatente from vehiculos where nroPatente=? and nroPatente=? "
 				+ "not in (select a.nroPatente from alquileres a "
-				+ "where (a.estadoAlquiler='agendado' or a.estadoAlquiler='en curso' or a.estadoAlquiler='finalizado') "
+				+ "where (a.estadoAlquiler='agendado' or a.estadoAlquiler='en curso' or a.estadoAlquiler='abonado') "
 				+ "and a.nroPatente=? "
 				+ "and a.fechaDesdeAlquiler <= ? and a.fechaHastaAlquiler >= ? "
 				+ "union "
@@ -143,7 +145,7 @@ public class CatalogoVehiculos {
 			rs = sentencia.executeQuery();
 			
 			while(rs.next()){
-				v.setNroPatente(rs.getString("nroPatente"));
+				nroPatente=rs.getString("nroPatente");
 				
 				}	
 		} catch (SQLException e) {
@@ -161,25 +163,25 @@ public class CatalogoVehiculos {
 		}
 
 
-		return v;
+		return nroPatente;
 		
 	}
 
 //====================================================================================
 	
-	public void insertVehiculo(String nroPat, int idCat){
+	public void insertVehiculo(String nroPat, String modelo, int idCat){
 				
-		String sql="insert into vehiculos values (?,?)";
+		String sql="insert into vehiculos values (?,?,?)";
 		PreparedStatement sentencia=null;
 		Connection conn=DataConnectionManager.getInstancia().getConn();
 		ResultSet rs=null;
 
 		try {	
 				sentencia=conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				sentencia.setString(1,nroPat.toUpperCase());
-				sentencia.setInt(2,idCat);
-				rs = sentencia.executeQuery();
-
+				sentencia.setString(1,nroPat);
+				sentencia.setString(2,modelo);
+				sentencia.setInt(3,idCat);
+				
 				int filasAfectadas=sentencia.executeUpdate();
 				ResultSet cps= sentencia.getGeneratedKeys();
 				if(cps.next()){
@@ -330,18 +332,15 @@ public class CatalogoVehiculos {
 	public String validarEliminacion(String nroPat){
 			
 		String nroPatente = "";
-		String sql="select v.nroPatente from vehiculos v "
+		String sql="select distinct v.nroPatente from vehiculos v "
 				+ "left join alquileres a on a.nroPatente=v.nroPatente "
-				+ "left join reparaciones r on a.nroPatente=v.nroPatente "
-				+ "where (a.fechaDesdeAlquiler>now() or r.fechaDesdeReparacion>now()) "
-				+ "and (a.estadoAlquiler='agendado' or a.estadoAlquiler='en curso' or a.estadoAlquiler='finalizado') "
+				+ "where a.fechaDesdeAlquiler>now() "
+				+ "and (a.estadoAlquiler='agendado' or a.estadoAlquiler='en curso' or a.estadoAlquiler='abonado') "
 				+ "and v.nroPatente=? "
 				+ "union "
-				+ "select v.nroPatente from vehiculos v "
-				+ "left join alquileres a on a.nroPatente=v.nroPatente "
-				+ "left join reparaciones r on a.nroPatente=v.nroPatente "
-				+ "where a.fechaDesdeAlquiler is null && r.fechaDesdeReparacion is null "
-				+ "and v.nroPatente=?;";
+				+ "select distinct v.nroPatente from vehiculos v "
+				+ "left join reparaciones r on r.nroPatente=v.nroPatente "
+				+ "where r.fechaDesdeReparacion>now() and v.nroPatente=?;";
 		PreparedStatement sentencia=null;
 		Connection conn=DataConnectionManager.getInstancia().getConn();
 		ResultSet rs=null;

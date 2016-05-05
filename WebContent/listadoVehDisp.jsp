@@ -42,16 +42,12 @@
 <div class="bs-example" >
 	
 	<% ArrayList <Vehiculo> vehiculos = (ArrayList<Vehiculo>) request.getAttribute("vehiculosDisp"); %>
-	<% Alquiler a = (Alquiler) request.getAttribute("Alquiler"); %>
-	<% int cantDisp = vehiculos.size(); %>
-
-<% if (cantDisp == 0) { %>
+	<% String usuario = (String)request.getAttribute("usuario"); %>
+	<% java.sql.Date fechaDesde = (java.sql.Date)request.getAttribute("fechaDesde"); %>
+	<% java.sql.Date fechaHasta = (java.sql.Date)request.getAttribute("fechaHasta"); %>
+	<% String descuento = String.valueOf(request.getAttribute("descuento")); %>
+	<% String importe = String.valueOf(request.getAttribute("importe")); %>
 	
-	<h2>No hay vehiculos disponibles de categoria <%=request.getAttribute("idCategoria")%> entre
-	para las fechas ingresadas</h2>
-
-<%} else { %>
-
 <h1>Detalle de Alquiler</h1>
 
 <table class="table table-bordered">
@@ -78,17 +74,17 @@
 			
 			<tr>
 			
-			<td> <%=a.getUsuarioCliente()%> </td>
-			<td> <%=a.getFechaDesdeAlquiler()%> </td>
-			<td> <%=a.getFechaHastaAlquiler()%> </td>
+			<td> <%=usuario%> </td>
+			<td> <%=fechaDesde%> </td>
+			<td> <%=fechaHasta%> </td>
 			
-			<% if ( request.getAttribute("descuento").toString().equals("0") ) { %>
+			<% if ( descuento.equals(0) ) { %>
 			
-			<td bgcolor= "#FE2E2E"> <%=a.getImporte()%> sin descuento</td>
+			<td bgcolor= "#FE2E2E"> <%=importe%> sin descuento</td>
 			
 			<% } else {%>
 			
-			<td bgcolor= "#FE2E2E"> <%=a.getImporte()%> el <%= request.getAttribute("descuento") %>% aplicado</td>
+			<td bgcolor= "#FE2E2E"> <%=importe%> el <%= descuento %>% aplicado</td>
 			
 			<% } %>
 			
@@ -100,7 +96,7 @@
 
 </table>
 
-<h1>Listado de Vehiculos disponibles de Categoria <%=request.getAttribute("idCategoria")%></h1>
+<h1>Listado de Vehiculos disponibles</h1>
 
 <table class="table table-bordered">
 
@@ -122,23 +118,24 @@
 	
 		<ul>
 		
-		<%for(int i=0 ; i<cantDisp ; i++) {%>
+		<%for(int i=0 ; i<vehiculos.size() ; i++) {%>
+			
+			<% String nroPatente =  vehiculos.get(i).getNroPatente();%>
 			
 			<tr>
 			
-			<td> <%=vehiculos.get(i).getNroPatente()%> </td>
+			<td> <%=nroPatente%> </td>
 			
 			<td> <%=vehiculos.get(i).getModeloVehiculo()%> </td>
 			
 			<td> 
 			
 			<form action="GenerarAlquiler" method="post">
-		  	<% a.setNroPatente(vehiculos.get(i).getNroPatente()); %>
-		  	<input type="hidden" name="usuario" value=<%=a.getUsuarioCliente()%>>
-		  	<input type="hidden" name="nroPatente" value=<%=a.getNroPatente()%>>
-		  	<input type="hidden" name="importe" value=<%=a.getImporte()%>>
-		  	<input type="hidden" name="fechaDesde" value=<%=a.getFechaDesdeAlquiler()%>>
-		  	<input type="hidden" name="fechaHasta" value=<%=a.getFechaHastaAlquiler()%>>
+		  	<input type="hidden" name="usuario" value=<%=usuario%>>
+		  	<input type="hidden" name="nroPatente" value=<%=nroPatente%>>
+		  	<input type="hidden" name="importe" value=<%=importe%>>
+		  	<input type="hidden" name="fechaDesde" value=<%=fechaDesde%>>
+		  	<input type="hidden" name="fechaHasta" value=<%=fechaHasta%>>
 		  	<input type="submit" class="btn btn-success" value="Alquilar" >
 		    </form>
 			
@@ -154,8 +151,6 @@
 	</tbody>
 
 </table>
-
-<%} %>
 
 	<form>
 		<input type="button" class="btn btn-info" value="Volver Atrás" onclick="history.back()" />

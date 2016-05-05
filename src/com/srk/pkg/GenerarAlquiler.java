@@ -38,15 +38,18 @@ public class GenerarAlquiler extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		new CatalogoAlquileres().insertAlquiler(new Alquiler( 
-				request.getParameter("usuario"),
+		String usuario = request.getParameter("usuario");
+		Jarvis j = new Jarvis();
+		
+		new CatalogoAlquileres().insertAlquiler( 
+				usuario,
 				request.getParameter("nroPatente"),
 				Float.parseFloat(request.getParameter("importe")),
-				(new Jarvis().fechaDesdeaSQL(request.getParameter("fechaDesde"))), 
-				(new Jarvis().fechaHastaaSQL(request.getParameter("fechaHasta")))
-		));
+				(j.segundaFechaSQL(request.getParameter("fechaDesde"))), 
+				(j.segundaFechaSQL(request.getParameter("fechaHasta")))
+		);
 		
-		request.setAttribute("usuario", request.getParameter("usuario"));
+		request.setAttribute("usuario", usuario);
 		
 		getServletContext().getRequestDispatcher("/pagppalCliente.jsp").forward(request,response);
 		

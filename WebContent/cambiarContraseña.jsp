@@ -40,13 +40,13 @@
 	 <form action="AplicarNuevaCont" method="post">
 		  <input type="hidden" name="usuario" value=<%=request.getAttribute("usuario")%>>
 		  Contraseña Actual:<br>
-		  <input type="password" name="contActual" size="22" pattern="[\wñÑáéíóú]{6,20}" title="Mínimo 6 numeros o letras" placeholder="Mínimo 6 numeros o letras" maxlength="20" autocomplete="off" required>
+		  <input type="password" name="contActual" size="22" pattern="[a-zA-Z0-9]{6,20}" title="Mínimo 6 numeros o letras" placeholder="Mínimo 6 numeros o letras" maxlength="20" autocomplete="off" required>
 		  <br><br>
 		  Contraseña Nueva:<br>
-		  <input type="password" name="contNueva" size="22" pattern="[\wñÑáéíóú]{6,20}" title="Mínimo 6 numeros o letras" placeholder="Mínimo 6 numeros o letras" maxlength="20" autocomplete="off"  required>
+		  <input type="password" name="contNueva" size="22" pattern="[a-zA-Z0-9]{6,20}" title="Mínimo 6 numeros o letras" placeholder="Mínimo 6 numeros o letras" maxlength="20" autocomplete="off"  required>
 		  <br><br>
 		  Confirmar Nueva Contraseña:<br>
-		  <input type="password" name="contConfirmar" size="22" pattern="[\wñÑáéíóú]{6,20}" title="Mínimo 6 numeros o letras" placeholder="Mínimo 6 numeros o letras" maxlength="20" autocomplete="off"  required>
+		  <input type="password" name="contConfirmar" size="22" pattern="[a-zA-Z0-9]{6,20}" title="Mínimo 6 numeros o letras" placeholder="Mínimo 6 numeros o letras" maxlength="20" autocomplete="off"  required>
 		  <br><br>
 		  <input type="submit" class="btn btn-success" value="Cambiar" >
 		  <input type="reset" class="btn btn-default" value="Reset" >

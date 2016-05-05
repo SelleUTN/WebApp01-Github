@@ -38,7 +38,7 @@
 
 <script> 
 	$(document).ready(function() { 
-	$("#datepicker1").datepicker(); 
+	$("#datepicker1").datepicker();
 	}); 
 </script>
 
@@ -62,10 +62,10 @@
   <input type="text" name="nroPatente" pattern="[a-zA-Z]{3}[0-9]{3}" title="Formato incorrecto" placeholder="Ejemplo: FAQ349" maxlength="6" autocomplete="off" required> <br>
   <br>
   Fecha Desde:<br>
-  <input type="text" id="datepicker1" name="fechaDesdeReparacion" onpaste="return false" oncut="return false" oncopy="return false" autocomplete="off" /> <br>
+  <input type="text" id="datepicker1" onkeydown="return false" name="fechaDesdeReparacion" placeholder="mes/dia/año" maxlength="10" autocomplete="off" /> <br>
   <br>
   Fecha Hasta:<br>
-  <input type="text" id="datepicker2" name="fechaHastaReparacion" onpaste="return false" oncut="return false" oncopy="return false" autocomplete="off" /> <br>
+  <input type="text" id="datepicker2" onkeydown="return false" name="fechaHastaReparacion" onpaste="return false" oncut="return false" oncopy="return false" placeholder="mes/dia/año" maxlength="10" autocomplete="off" /> <br>
   <br>
   Tipo de Reparacion:<br>
   <select name="opcion">    

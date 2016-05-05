@@ -39,10 +39,10 @@
 
 	<form action="ValidarUsuario" method="post">
 		  Usuario:<br>
-		  <input type="text" name="usuario" pattern="[A-Za-zñÑ0-9]{6,20}" title="Mínimo 6 numeros/letras (sin acentos)" maxlength="20" autocomplete="off" required>
+		  <input type="text" name="usuario" pattern="[\w]{6,20}" title="Mínimo 6 numeros/letras (sin acentos)" maxlength="20" autocomplete="off" required>
 		  <br>
 		  Contraseña:<br>
-		  <input type="password" name="cont" pattern="[A-Za-zñÑ0-9]{6,20}" title="Mínimo 6 numeros/letras (sin acentos)" maxlength="20" required>
+		  <input type="password" name="cont" pattern="[a-zA-Z0-9]{6,20}" title="Mínimo 6 numeros/letras (sin acentos)" maxlength="20" required>
 		  <br><br>
 		  <input type="submit" class="btn btn-success" value="Ingresar" >
 		  <input type="reset" class="btn btn-default" value="Reset" >

@@ -1,6 +1,7 @@
 package negocio.datos;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -102,7 +103,7 @@ public class CatalogoAlquileres {
 
 //====================================================================================	
 	
-		public void insertAlquiler(Alquiler alq){
+		public void insertAlquiler(String usuario, String nroPatente, Float importe, Date fechaDesde, Date fechaHasta){
 		
 		String sql="insert into alquileres (usuarioCliente,nroPatente,importe,fechaDesdeAlquiler,fechaHastaAlquiler,estadoAlquiler) values (?,?,?,?,?,?)";
 		PreparedStatement sentencia=null;
@@ -110,18 +111,18 @@ public class CatalogoAlquileres {
 		
 		try {
 				sentencia=conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				sentencia.setString(1, alq.getUsuarioCliente());
-				sentencia.setString(2, alq.getNroPatente());
-				sentencia.setFloat(3, alq.getImporte());
-				sentencia.setDate(4, alq.getFechaDesdeAlquiler());
-				sentencia.setDate(5, alq.getFechaHastaAlquiler());
+				sentencia.setString(1, usuario);
+				sentencia.setString(2, nroPatente);
+				sentencia.setFloat(3, importe);
+				sentencia.setDate(4, fechaDesde);
+				sentencia.setDate(5, fechaHasta);
 				sentencia.setString(6, "agendado");
 				
 				int filasAfectadas=sentencia.executeUpdate();
 				ResultSet cps= sentencia.getGeneratedKeys();
 				if(cps.next()){
 						int locId=cps.getInt(1);
-						alq.setNroAlquiler(locId);
+						sentencia.setInt(1, locId);
 				}
 
 		} catch (SQLException e) {

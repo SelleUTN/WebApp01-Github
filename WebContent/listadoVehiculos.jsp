@@ -116,7 +116,7 @@
 										</td>
 										
 										<td>
-											<form action="EliminarVehiculo" method="post"> 
+											<form action="ValidarElimVehiculo" method="post"> 
 			   								<input type="hidden" name="nroPatente" value=<%=nroPatente%>>
 			   								<input type="submit" class="btn btn-danger" value="Eliminar" />
 			   								</form>

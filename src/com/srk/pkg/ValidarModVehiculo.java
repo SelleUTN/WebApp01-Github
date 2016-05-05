@@ -39,7 +39,7 @@ public class ValidarModVehiculo extends HttpServlet {
 		String nroPatente = request.getParameter("nroPatente");
 		String modelo = request.getParameter("modelo");
 		
-		if ( !modelo.matches("[a-zA-Z0-9]*") ){
+		if ( !modelo.matches("[\\w\\s]{1,25}") ){
 			request.setAttribute("respuesta", "El campo Modelo debe contener solo letras y/o numeros"); 
 			respuesta(request,response);
 		} else {

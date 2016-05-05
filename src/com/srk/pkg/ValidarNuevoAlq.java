@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,10 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidad.Alquiler;
+import entidad.Categoria;
+import entidad.Vehiculo;
 import negocio.datos.CatalogoCategorias;
 import negocio.datos.CatalogoDescuentos;
 import negocio.datos.CatalogoVehiculos;
 import validaciones.Jarvis;
+import validaciones.PropiasExceptions;
 
 /**
  * Servlet implementation class Alquiler1
@@ -46,6 +50,7 @@ public class ValidarNuevoAlq extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		String usuario = request.getParameter("usuario");
 		String date1 = request.getParameter("fechaDesdeAlquiler");
 		String date2 = request.getParameter("fechaHastaAlquiler");
 		String idCategoria = request.getParameter("idCategoria");
@@ -59,47 +64,43 @@ public class ValidarNuevoAlq extends HttpServlet {
 		
 		else {
 			// Campos completos
-			String resp1 = j.validarFormatoFechas(date1, date2);	
+				
+			try {
 			
-			if ( resp1.compareTo("valido")!=0 ) {
-				request.setAttribute("respuesta", resp1); 
-				respuesta(request,response);
-						
-			} else {
-			// Las fechas fueron ingresadas en el formato correcto
-						
-					java.sql.Date fechaDesde = new Jarvis().fechaSQL(date1);
-				    
-				    java.sql.Date fechaHasta = new Jarvis().fechaSQL(date2);
-				    
-					String resp2 = j.validarFechas(fechaDesde, fechaHasta);
+				j.validarFormatoFechas(date1, date2);	
+				j.fechasHabilitadas(date1, date2);
+				java.sql.Date fechaDesde = new Jarvis().primerFechaSQL(date1);
+				java.sql.Date fechaHasta = new Jarvis().primerFechaSQL(date2);
+				j.validarFechas(fechaDesde, fechaHasta);
 					
-					if ( resp2.compareTo("valido")!=0 ){
-						request.setAttribute("respuesta", resp2); 
-						respuesta(request,response); 
-					
-					} else {
-					// Las fechas fueron ingresadas correctamente
-						request.setAttribute("vehiculosDisp", new CatalogoVehiculos().getVehiculosDisp(Integer.parseInt(idCategoria), fechaDesde, fechaHasta));
-			    		
-						request.setAttribute("descuento", new CatalogoDescuentos().obtenerPorcentaje(fechaDesde, fechaHasta) );
+				ArrayList<Vehiculo> vehiculosDisp = new ArrayList<Vehiculo>();
+				vehiculosDisp = new CatalogoVehiculos().getVehiculosDisp(Integer.parseInt(idCategoria), fechaDesde, fechaHasta);
+							
+				if ( vehiculosDisp.isEmpty() ) {
+					request.setAttribute("respuesta", "No hay vehiculos disponibles de categoria "+idCategoria+" para las fechas ingresadas"); 
+					respuesta(request,response);
+							
+				} else {
+					// Hay vehiculos disponibles
+							
+					request.setAttribute("vehiculosDisp", vehiculosDisp);
+					request.setAttribute("usuario", usuario);
+					request.setAttribute("fechaDesde", fechaDesde);
+					request.setAttribute("fechaHasta", fechaHasta);
+				    int descuento = new CatalogoDescuentos().obtenerPorcentaje(fechaDesde, fechaHasta);
+					float precio = new CatalogoCategorias().getPrecio(Integer.parseInt(idCategoria));
+					request.setAttribute("descuento", descuento);
+					request.setAttribute("importe", j.generarImporte(fechaDesde, fechaHasta, precio, descuento));
+				    		
+				    getServletContext().getRequestDispatcher("/listadoVehDisp.jsp").forward(request,response);
 						
-			    		request.setAttribute("Alquiler", new Alquiler( 
-			    					request.getParameter("usuario"), fechaDesde, fechaHasta, 
-			    					new CatalogoCategorias().getPrecio(Integer.parseInt(idCategoria)), 
-			    					new CatalogoDescuentos().obtenerPorcentaje(fechaDesde, fechaHasta) ) 
-			    		);
-			    		
-			    		request.setAttribute("usuario", request.getParameter("usuario"));
-			    		
-			    		request.setAttribute("idCategoria", idCategoria);
-			    		
-						getServletContext().getRequestDispatcher("/listadoVehDisp.jsp").forward(request,response);
-					
-					}// Las fechas fueron ingresadas correctamente
-			
-			}// Las fechas fueron ingresadas en el formato correcto
+				 }// Hay vehiculos disponibles
 		
+			} catch (PropiasExceptions pe) {
+				request.setAttribute("respuesta", pe.getResp()); 
+				respuesta(request,response);
+			} 
+				
 		}// Campos completos	
 	
 	}//cierre doPost			

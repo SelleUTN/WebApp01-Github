@@ -2,6 +2,9 @@ package com.srk.pkg;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
@@ -9,10 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entidad.Socio;
 import entidad.Usuario;
 import negocio.datos.CatalogoUsuarios;
 import validaciones.Jarvis;
+import validaciones.PropiasExceptions;
 
 /**
  * Servlet implementation class ValidarUsuario
@@ -42,19 +45,23 @@ public class ValidarUsuario extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		if (Pattern.matches("([0]+[13578]|[1]+[02])+/+([012]+[1-9]|[123]+[0-1])+/+[2]+[0]+[1-9]+[0-9]","05/10/2016")){
+			System.out.println("valido");
+		} else {
+			System.out.println("invalido");
+		}
+		if (Pattern.matches("([012]+[1-9]|[3]+[0])+/","10/")){
+			System.out.println("valido");
+		} else {
+			System.out.println("invalido");
+		}
+		
 		String usuario = request.getParameter("usuario");
 		String cont = request.getParameter("cont");
 		
-		/*boolean usuario1 = Pattern.matches("[a-zA-Z]{3}+[0-9]{3}","ar3a22");
-		System.out.println(usuario1);
-		boolean letras = Pattern.matches("[a-zA-ZñÑáéíóú\\s]{1,25}","ññÑÑa 8asd pablo");
-		boolean numeros = Pattern.matches("\\d{7,13}","5493416684434");
-		System.out.println("nombre "+letras);
-		System.out.println("telefono "+numeros);*/
-			
-			if ( usuario.isEmpty() || cont.isEmpty() ){
-				request.setAttribute("respuesta", "Completar campos vacíos"); 
-				respuesta(request,response);
+		if ( usuario.isEmpty() || cont.isEmpty() ){
+				/*request.setAttribute("respuesta", "Completar campos vacíos"); 
+				respuesta(request,response);*/
 			
 			} else {
 				
@@ -68,7 +75,7 @@ public class ValidarUsuario extends HttpServlet {
 							
 							CatalogoUsuarios catusu = new CatalogoUsuarios();
 							Usuario u = catusu.getUsuario(usuario, cont);
-							
+								
 									if ( u.getDni()==0 ) {
 										request.setAttribute("respuesta", "Usuario y/o Contraseña incorrecta"); 
 										respuesta(request,response); 

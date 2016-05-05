@@ -39,19 +39,19 @@
 
 	<form action="RegistrarCliente" method="post">
 		  Usuario:<br>
-		  <input type="text" name="usuarioCliente" size="22" pattern="[\wñÑáéíóú]{6,20}" title="Mínimo 6 numeros o letras" placeholder="Mínimo 6 numeros o letras" maxlength="20" autocomplete="off" required>
+		  <input type="text" name="usuarioCliente" size="22" pattern="[\w]{6,20}" title="Mínimo 6 numeros o letras" placeholder="Mínimo 6 numeros o letras" maxlength="20" autocomplete="off" required>
 		  <br>
 		  Contraseña:<br>
-		  <input type="password" name="contCliente" size="22" pattern="[a-zA-Z0-9ñÑáéíóú]{6,20}" title="Mínimo 6 numeros o letras" placeholder="Mínimo 6 numeros o letras" maxlength="20" autocomplete="off" required>
+		  <input type="password" name="contCliente" size="22" pattern="[a-zA-Z0-9]{6,20}" title="Mínimo 6 numeros o letras" placeholder="Mínimo 6 numeros o letras" maxlength="20" autocomplete="off" required>
 		  <br>
 		  Repetir contraseña:<br>
-		  <input type="password" name="confCont" size="22" pattern="[a-zA-Z0-9ñÑáéíóú]{6,20}" title="Mínimo 6 numeros o letras" placeholder="Mínimo 6 numeros o letras" maxlength="20" autocomplete="off" required>
+		  <input type="password" name="confCont" size="22" pattern="[a-zA-Z0-9]{6,20}" title="Mínimo 6 numeros o letras" placeholder="Mínimo 6 numeros o letras" maxlength="20" autocomplete="off" required>
 		  <br>
 		  DNI:<br>
 		  <input type="text" name="dniCliente" size="22" pattern="\d{8}" title="Solo numeros, 8 en total" placeholder="Solo numeros, 8 en total" maxlength="8" autocomplete="off" required>
 		  <br>
 		  Nombre:<br>
-		  <input type="text" name="nombreCliente" size="22" pattern="[a-zA-ZñÑáéíóú\s]{1,25}" title="Solo letras" placeholder="Solo letras" maxlength="25" autocomplete="off" required>
+		  <input type="text" name="nombreCliente" size="22" pattern="[a-zA-Z\s]{1,25}" title="Solo letras" placeholder="Solo letras" maxlength="25" autocomplete="off" required>
 		  <br>
 		  Teléfono:<br>
 		  <input type="text" name="telefonoCliente" size="22" pattern="\d{7,9}" title="Solo numeros, entre 7 y 9 numeros" placeholder="Solo numeros, Fijo o Celular" maxlength="9" autocomplete="off" required>

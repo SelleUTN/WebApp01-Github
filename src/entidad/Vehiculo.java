@@ -9,12 +9,6 @@ public class Vehiculo {
 	public String getNroPatente() {
 		return nroPatente;
 	}
-	public int getIdCategoria() {
-		return idCategoria;
-	}
-	public void setIdCategoria(int idCategoria) {
-		this.idCategoria = idCategoria;
-	}
 	public void setNroPatente(String nroPatente) {
 		this.nroPatente = nroPatente;
 	}
@@ -23,6 +17,12 @@ public class Vehiculo {
 	}
 	public void setModeloVehiculo(String modeloVehiculo) {
 		this.modeloVehiculo = modeloVehiculo;
+	}
+	public int getIdCategoria() {
+		return idCategoria;
+	}
+	public void setIdCategoria(int idCategoria) {
+		this.idCategoria = idCategoria;
 	}
 	
 	public Vehiculo(){

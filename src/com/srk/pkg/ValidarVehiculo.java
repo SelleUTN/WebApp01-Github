@@ -1,6 +1,8 @@
 package com.srk.pkg;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -55,10 +57,9 @@ public class ValidarVehiculo extends HttpServlet {
 			
 			} else {
 			// Id correcto
-					String resp1 = j.validarPatente(nroPatente);
 					
-					if (resp1.compareTo("valido")!=0){
-						request.setAttribute("respuesta", resp1); 
+					if ( !Pattern.matches("[a-zA-Z]{3}+[0-9]{3}",nroPatente) ){
+						request.setAttribute("respuesta", "Formato de vehiculo no válido"); 
 						respuesta(request,response);
 					
 					}// Id correcto 
@@ -79,7 +80,7 @@ public class ValidarVehiculo extends HttpServlet {
 								// Modelo con formato correcto	
 							} else {
 								// El vehiculo no se encuentra en el sistema, asi que puede ser registrado
-								//new CatalogoVehiculos().insertVehiculo(nroPatente, idCategoria);
+								new CatalogoVehiculos().insertVehiculo(nroPatente.toUpperCase(), modeloVehiculo, idCategoria);
 								
 								getServletContext().getRequestDispatcher("/pagppalGerente.jsp").forward(request,response);
 								

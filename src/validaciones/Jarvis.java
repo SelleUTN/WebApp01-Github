@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class Jarvis {
 
-	public String validarFormatoFechas (String date1, String date2) {
+	/*public String validarFormatoFechas (String date1, String date2) throws Exception{
 		
 		String respuesta = "";
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -40,9 +40,37 @@ public class Jarvis {
 	    	
 	    return respuesta;
 	
+	}*/
+	
+	public void validarFormatoFechas (String date1, String date2) throws RuntimeException{
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    java.util.Date parsed = null;
+    boolean resp1=true, resp2=true;
+		
+    	try {
+	        parsed = sdf.parse(date1);
+	    } catch (ParseException e1) {
+	        resp1=false;
+	    }
+    	
+    	try {
+	        parsed = sdf.parse(date2);
+	    } catch (ParseException e1) {
+	        resp2=false;
+	    }
+	
+    	if ( resp1==false && resp2==false) {
+    		throw new PropiasExceptions("El formato de ambas fechas no es valido"); 
+    	} else if (resp1==true && resp2==false) {
+    		throw new PropiasExceptions("El formato de la segunda fecha no es valido");
+    	} else if (resp1==false && resp2==true) {
+    		throw new PropiasExceptions("El formato de la primer fecha no es valido");
+    	} 
+    	
 	}
 	
-	public java.sql.Date fechaSQL (String date) {
+	public java.sql.Date primerFechaSQL (String date) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 	    
@@ -60,7 +88,7 @@ public class Jarvis {
 	    
 	}
 	
-	public java.sql.Date fechaDesdeaSQL (String date1){
+	public java.sql.Date segundaFechaSQL (String date1){
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	    
@@ -78,39 +106,21 @@ public class Jarvis {
 	    
 	}
 	
-	public java.sql.Date fechaHastaaSQL (String date1){
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	    
-		java.util.Date parsed = null;
-	    try {
-	        parsed = sdf.parse(date1);
-	    } catch (ParseException e1) {
-	        // TODO Auto-generated catch block
-	        e1.printStackTrace();
-	    }
-	    
-	    java.sql.Date fechaHasta = new java.sql.Date(parsed.getTime());
-	    
-	    return fechaHasta;
-	    
-	}
-	
 	public String validarDatosCl(String usu,String cont,String conf, String dni,String nom, String tel){
 		
 		String respuesta="";
 		
-			if ( !Pattern.matches("[\\wñÑáéíóú]{6,20}",usu) ) {
+			if ( !Pattern.matches("[\\w]{6,20}",usu) ) {
 				respuesta="El campo Usario debe tener entre 6 y 20 caracteres (numeros y/o letras)";
-			} else if ( !Pattern.matches("[a-zA-Z0-9ñÑáéíóú]{6,20}",cont) ) {
+			} else if ( !Pattern.matches("[a-zA-Z0-9]{6,20}",cont) ) {
 				respuesta="El campo Contraseña debe tener entre 6 y 20 caracteres (numeros y/o letras)";
-			} else if ( !Pattern.matches("[a-zA-Z0-9ñÑáéíóú]{6,20}",conf) ) {
+			} else if ( !Pattern.matches("[a-zA-Z0-9]{6,20}",conf) ) {
 				respuesta="El campo Repetir contraseña debe tener entre 6 y 20 caracteres (numeros y/o letras)";
 			} else if ( cont.compareTo(conf)!=0  ) {
 				respuesta="Las contraseñas deben ser iguales";
 			} else if ( !Pattern.matches("\\d{8}",dni) ) {
 				respuesta="El campo DNI debe contener solo 8 numeros";
-			} else if ( !Pattern.matches("[a-zA-ZñÑáéíóú\\s]{1,25}",nom) ) {
+			} else if ( !Pattern.matches("[a-zA-Z\\s]{1,25}",nom) ) {
 				respuesta="El campo Nombre debe contener solo letras";
 			} else if ( !Pattern.matches("\\d{7,9}",tel) ) {
 				respuesta="El campo Telefono debe contener solo numeros (fijo o celular)";
@@ -124,9 +134,9 @@ public class Jarvis {
 		
 		String respuesta="";
 		
-			if ( !Pattern.matches("[\\wñÑáéíóú]{6,20}",usu) ) {
+			if ( !Pattern.matches("[\\w]{6,20}",usu) ) {
 				respuesta="El campo Usuario debe tener entre 6 y 20 caracteres en total (numeros y/o letras)";
-			} else if ( !Pattern.matches("[a-zA-Z0-9ñÑáéíóú]{6,20}",cont) ) {
+			} else if ( !Pattern.matches("[a-zA-Z0-9]{6,20}",cont) ) {
 				respuesta="El campo Contraseña debe tener entre 6 y 20 caracteres en total (numeros y/o letras)";
 			} else { respuesta="valido"; }
 			
@@ -138,9 +148,9 @@ public class Jarvis {
 		
 		String respuesta="";
 		
-			if ( !Pattern.matches("[a-zA-Z0-9ñÑáéíóú]{6,20}",contActual) ||
-				 !Pattern.matches("[a-zA-Z0-9ñÑáéíóú]{6,20}",contNueva) ||	
-				 !Pattern.matches("[a-zA-Z0-9ñÑáéíóú]{6,20}",contConf) ) {
+			if ( !Pattern.matches("[a-zA-Z0-9]{6,20}",contActual) ||
+				 !Pattern.matches("[a-zA-Z0-9]{6,20}",contNueva) ||	
+				 !Pattern.matches("[a-zA-Z0-9]{6,20}",contConf) ) {
 				 respuesta="Las Contraseñas deben tener entre 6 y 20 caracteres en total (numeros y/o letras)";
 			} else if ( contConf.compareTo(contNueva)!=0 ) {
 				respuesta="Confirmar correctamente la nueva contraseña";
@@ -150,7 +160,7 @@ public class Jarvis {
 	
 	}
 	
-	public String validarFechas(Date fechaDesde, Date fechaHasta){
+	public void validarFechas(Date fechaDesde, Date fechaHasta) throws RuntimeException{
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	    Calendar cal = Calendar.getInstance();
@@ -165,21 +175,51 @@ public class Jarvis {
 	    }
         java.sql.Date fechaHoySql = new java.sql.Date(parsed.getTime());
         
-        String respuesta="";
-			
-			if ( fechaDesde.before(fechaHoySql) ) {
-				respuesta="El Alquiler no puede ser registrado en alguna fecha antes de hoy";
+        if ( fechaDesde.before(fechaHoySql) ) {
+        		throw new PropiasExceptions("El Alquiler no puede ser registrado en alguna fecha antes de hoy");
 			} else if ( fechaDesde.equals(fechaHasta) ) {
-				 respuesta="Las fechas no pueden ser las mismas";
+				throw new PropiasExceptions("Las fechas no pueden ser las mismas");
 			} else if ( !fechaDesde.before(fechaHasta) ) {
-				respuesta="La primer fecha debe ser anterior a la segunda";
-			} else { respuesta="valido"; }
+				throw new PropiasExceptions("La primer fecha debe ser anterior a la segunda");
+			}
 			
-		return respuesta;
-	
 	}
 	
-	public String validarPatente(String pat) {
+	public void fechasHabilitadas(String fechaDesde, String fechaHasta) throws RuntimeException{
+		
+		if ( !Pattern.matches("([0]+[13578]|[1]+[02])+/+[012]+[1-9]|[123]+[0-1])+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) && 
+			 !Pattern.matches("([0]+[469]|[1]+[1])+/+([012]+[1-9]|[123]+[0])+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) &&
+			 !Pattern.matches("[0]+[2]+/+[012]+[1-9]+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) )
+		{ throw new PropiasExceptions("La fecha de inicio tiene un formato no válido, probar de nuevo"); } 
+		
+		else if ( !Pattern.matches("([0]+[13578]|[1]+[02])+/+([012]+[1-9]|[123]+[0-1])+/+[2]+[0]+[1-9]+[0-9]",fechaHasta) && 
+				  !Pattern.matches("([0]+[469]|[1]+[1])+/+([012]+[1-9]|[123]+[0])+/+[2]+[0]+[1-9]+[0-9]",fechaHasta) &&
+				  !Pattern.matches("[0]+[2]+/+[012]+[1-9]+/+[2]+[0]+[1-9]+[0-9]",fechaHasta) )
+			{ throw new PropiasExceptions("La fecha de finalizacion tiene un formato no válido, probar de nuevo"); } 
+		
+	}
+	
+	/*public String fechasHabilitadas(String fechaDesde, String fechaHasta){
+		
+		String respuesta="";
+		
+		if ( !Pattern.matches("([0]+[13578]|[1]+[02])+/+([012]+[1-9]|[3]+[0-1])+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) || 
+			 !Pattern.matches("([0]+[469]|[1]+[1])+/+([012]+[1-9]|[3]+[0])+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) ||
+			 !Pattern.matches("[0]+[2]+/+[012]+[1-9]+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) )
+		{ respuesta="La fecha de inicio tiene un formato no válido, probar de nuevo"; } 
+		
+		else if ( !Pattern.matches("([0]+[13578]|[1]+[02])+/+([012]+[1-9]|[3]+[0-1])+/+[2]+[0]+[1-9]+[0-9]",fechaHasta) || 
+				  !Pattern.matches("([0]+[469]|[1]+[1])+/+([012]+[1-9]|[3]+[0])+/+[2]+[0]+[1-9]+[0-9]",fechaHasta) ||
+				  !Pattern.matches("[0]+[2]+/+[012]+[1-9]+/+[2]+[0]+[1-9]+[0-9]",fechaHasta) )
+			{ respuesta="La fecha de finalizacion tiene un formato no válido, probar de nuevo"; } 
+		
+		else { respuesta="valido"; }
+		
+		return respuesta;
+	
+	}*/
+	
+	/*public String validarPatente(String pat) {
 		
 		String respuesta="";
 			
@@ -189,7 +229,13 @@ public class Jarvis {
 			
 		return respuesta;
 	
-	}
+	}*/
+	
+	public void validarPatente(String pat) throws RuntimeException {
+		
+		if ( !Pattern.matches("[a-zA-Z]{3}+[0-9]{3}",pat) ) {
+				throw new PropiasExceptions("Error: patente invalida"); } 
+		}
 	
 	public boolean compararPatentes(String pat1, String pat2) {
 		
@@ -219,52 +265,47 @@ public class Jarvis {
 	
 	}
 	
-	public String validarTipoRep(int op, String tipo){
+	public void validarTipoRep(int op, String tipo) throws RuntimeException{
 		
-		String respuesta="";
-			
 			if ( op!=1 && op!=2 ) {
-				respuesta="Opcion incorrecta";
+				throw new PropiasExceptions("Opcion incorrecta");
 			} else {
-				
 					switch (op) {
 		            
-					case 1: if ( !Pattern.matches("[a-zA-Z\\s]{4,20}+\\s?+[0-9]{1,4}",tipo) ) {
-								respuesta="Ingresar direccion valida, ejemplo: Italia 1455";
-							} else {
-								respuesta="Taller";
-							}
-		                     
-							break;
-		            
-					case 2: if ( !Pattern.matches("[a-zA-Z]{1,20}",tipo) ) {
-								respuesta="El nombre del Mecanico debe contener solo letras, sin espacios";
-							} else {
-								respuesta="Mecanico"; 
-							}
-		            
-							break;
-							
-					 default: respuesta="Error de opcion";
-					 		break;
-					
+					case 1: if ( !Pattern.matches("[a-zA-Z\\s]{4,20}+\\s+[0-9]{1,4}",tipo) ) {
+						throw new PropiasExceptions("Ingresar direccion valida, ejemplo: Italia 1455");
+					}
+					case 2: if ( !Pattern.matches("[a-zA-Z\\s]{1,20}",tipo) ) {
+						throw new PropiasExceptions("El nombre del Mecanico debe contener solo letras");
+					}	
+			
 					}
 			
 			}
-			
-		return respuesta;
-	
 	}
-
+	
 	public String validarModelo(String mod) {
 		
 		String respuesta="";
 			
-			if ( !Pattern.matches("[\\wñÑáéíóú\\s]{1,25}",mod) ) {
+			if ( !Pattern.matches("[\\w\\s]{1,25}",mod) ) {
 				respuesta="El campo Modelo debe tener letras y/o numeros";
 			} else { respuesta="valido"; }
 			
 		return respuesta;
+	
+	}
+	
+	public float generarImporte(Date fd, Date fh, float precioCat, int desc) {
+		
+		float importe = 0;
+		
+		long diferencia = ( fh.getTime() - fd.getTime() );
+	    float dias = (float)Math.floor(diferencia / (1000 * 60 * 60 * 24));
+	    
+	    importe = dias*precioCat - ((dias*precioCat)*desc/100);
+	    
+	    return importe;
 	
 	}
 
