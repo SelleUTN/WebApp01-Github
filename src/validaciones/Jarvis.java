@@ -9,9 +9,8 @@ import java.util.regex.Pattern;
 
 public class Jarvis {
 
-	/*public String validarFormatoFechas (String date1, String date2) throws Exception{
-		
-		String respuesta = "";
+	public void validarFormatoFechas (String date1, String date2) throws RuntimeException{
+	
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 	    java.util.Date parsed = null;
 	    boolean resp1=true, resp2=true;
@@ -29,44 +28,12 @@ public class Jarvis {
 		    }
 		
 	    	if ( resp1==false && resp2==false) {
-	    		respuesta = "El formato de ambas fechas no es valido";
+	    		throw new PropiasExceptions("El formato de ambas fechas no es valido"); 
 	    	} else if (resp1==true && resp2==false) {
-	    		respuesta = "El formato de la segunda fecha no es valido";
+	    		throw new PropiasExceptions("El formato de la segunda fecha no es valido");
 	    	} else if (resp1==false && resp2==true) {
-	    		respuesta = "El formato de la primer fecha no es valido";
-	    	} else if (resp1==true && resp2==true) {
-	    		respuesta = "valido";
-	    	}
-	    	
-	    return respuesta;
-	
-	}*/
-	
-	public void validarFormatoFechas (String date1, String date2) throws RuntimeException{
-	
-	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-    java.util.Date parsed = null;
-    boolean resp1=true, resp2=true;
-		
-    	try {
-	        parsed = sdf.parse(date1);
-	    } catch (ParseException e1) {
-	        resp1=false;
-	    }
-    	
-    	try {
-	        parsed = sdf.parse(date2);
-	    } catch (ParseException e1) {
-	        resp2=false;
-	    }
-	
-    	if ( resp1==false && resp2==false) {
-    		throw new PropiasExceptions("El formato de ambas fechas no es valido"); 
-    	} else if (resp1==true && resp2==false) {
-    		throw new PropiasExceptions("El formato de la segunda fecha no es valido");
-    	} else if (resp1==false && resp2==true) {
-    		throw new PropiasExceptions("El formato de la primer fecha no es valido");
-    	} 
+	    		throw new PropiasExceptions("El formato de la primer fecha no es valido");
+	    	} 
     	
 	}
 	
@@ -170,9 +137,9 @@ public class Jarvis {
         try {
 	        parsed = sdf.parse(fechaHoyString);
 	    } catch (ParseException e1) {
-	        // TODO Auto-generated catch block
-	        e1.printStackTrace();
+	    	throw new PropiasExceptions("Error del sistema");
 	    }
+        
         java.sql.Date fechaHoySql = new java.sql.Date(parsed.getTime());
         
         if ( fechaDesde.before(fechaHoySql) ) {
@@ -187,7 +154,7 @@ public class Jarvis {
 	
 	public void fechasHabilitadas(String fechaDesde, String fechaHasta) throws RuntimeException{
 		
-		if ( !Pattern.matches("([0]+[13578]|[1]+[02])+/+[012]+[1-9]|[123]+[0-1])+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) && 
+		if ( !Pattern.matches("([0]+[13578]|[1]+[02])+/+([012]+[1-9]|[123]+[0-1])+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) && 
 			 !Pattern.matches("([0]+[469]|[1]+[1])+/+([012]+[1-9]|[123]+[0])+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) &&
 			 !Pattern.matches("[0]+[2]+/+[012]+[1-9]+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) )
 		{ throw new PropiasExceptions("La fecha de inicio tiene un formato no válido, probar de nuevo"); } 
@@ -199,42 +166,10 @@ public class Jarvis {
 		
 	}
 	
-	/*public String fechasHabilitadas(String fechaDesde, String fechaHasta){
-		
-		String respuesta="";
-		
-		if ( !Pattern.matches("([0]+[13578]|[1]+[02])+/+([012]+[1-9]|[3]+[0-1])+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) || 
-			 !Pattern.matches("([0]+[469]|[1]+[1])+/+([012]+[1-9]|[3]+[0])+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) ||
-			 !Pattern.matches("[0]+[2]+/+[012]+[1-9]+/+[2]+[0]+[1-9]+[0-9]",fechaDesde) )
-		{ respuesta="La fecha de inicio tiene un formato no válido, probar de nuevo"; } 
-		
-		else if ( !Pattern.matches("([0]+[13578]|[1]+[02])+/+([012]+[1-9]|[3]+[0-1])+/+[2]+[0]+[1-9]+[0-9]",fechaHasta) || 
-				  !Pattern.matches("([0]+[469]|[1]+[1])+/+([012]+[1-9]|[3]+[0])+/+[2]+[0]+[1-9]+[0-9]",fechaHasta) ||
-				  !Pattern.matches("[0]+[2]+/+[012]+[1-9]+/+[2]+[0]+[1-9]+[0-9]",fechaHasta) )
-			{ respuesta="La fecha de finalizacion tiene un formato no válido, probar de nuevo"; } 
-		
-		else { respuesta="valido"; }
-		
-		return respuesta;
-	
-	}*/
-	
-	/*public String validarPatente(String pat) {
-		
-		String respuesta="";
-			
-			if ( !Pattern.matches("[a-zA-Z]{3}+[0-9]{3}",pat) ) {
-				respuesta="La patente debe tener 3 numeros y luego 3 letras ejemplo: FAQ232";
-			} else { respuesta="valido"; }
-			
-		return respuesta;
-	
-	}*/
-	
 	public void validarPatente(String pat) throws RuntimeException {
 		
 		if ( !Pattern.matches("[a-zA-Z]{3}+[0-9]{3}",pat) ) {
-				throw new PropiasExceptions("Error: patente invalida"); } 
+				throw new PropiasExceptions("La patente debe tener 3 numeros y luego 3 letras ejemplo: FAQ232"); } 
 		}
 	
 	public boolean compararPatentes(String pat1, String pat2) {

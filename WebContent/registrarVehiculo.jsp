@@ -46,10 +46,10 @@
 
 	<form action="ValidarVehiculo" method="post">
 		  Numero de Patente:<br>
-		  <input type="text" name="nroPatente" pattern="[a-zA-Z]{3}[0-9]{3}" title="Formato incorrecto" placeholder="Ejemplo: FAQ349" maxlength="6" autocomplete="off" required>
+		  <input type="text" name="nroPatente" pattern="[a-zA-Z]{3}[0-9]{3}" title="Formato inválido - ejemplo: FAQ349" placeholder="Ejemplo: FAQ349" maxlength="6" autocomplete="off" required>
 		  <br>
 		  Modelo:<br>
-		  <input type="text" name="modeloVehiculo" pattern="[\w\s]{1,25}" title="Ingresar caracteres válidos" maxlength="25" autocomplete="off" required>
+		  <input type="text" name="modeloVehiculo" pattern="[\w\s]{1,25}" title="Ingresar caracteres válidos, no acentos ni ñ" maxlength="25" autocomplete="off" required>
 		  <br>
 		  Categoria:<br>
   		  <select name="idCategoria" required>    

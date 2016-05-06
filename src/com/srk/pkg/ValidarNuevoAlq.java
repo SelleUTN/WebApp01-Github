@@ -51,12 +51,13 @@ public class ValidarNuevoAlq extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		String usuario = request.getParameter("usuario");
+		String contraseña = request.getParameter("contraseña");
 		String date1 = request.getParameter("fechaDesdeAlquiler");
 		String date2 = request.getParameter("fechaHastaAlquiler");
 		String idCategoria = request.getParameter("idCategoria");
 		Jarvis j = new Jarvis();
 		
-		if ( date1.isEmpty() || date2.isEmpty() || idCategoria.isEmpty() ){
+		if ( date1.isEmpty() || date2.isEmpty() ){
 			request.setAttribute("respuesta", "Completar campos vacíos"); 
 			respuesta(request,response); 
 		
@@ -67,7 +68,6 @@ public class ValidarNuevoAlq extends HttpServlet {
 				
 			try {
 			
-				j.validarFormatoFechas(date1, date2);	
 				j.fechasHabilitadas(date1, date2);
 				java.sql.Date fechaDesde = new Jarvis().primerFechaSQL(date1);
 				java.sql.Date fechaHasta = new Jarvis().primerFechaSQL(date2);
@@ -85,6 +85,7 @@ public class ValidarNuevoAlq extends HttpServlet {
 							
 					request.setAttribute("vehiculosDisp", vehiculosDisp);
 					request.setAttribute("usuario", usuario);
+					request.setAttribute("contraseña", contraseña);
 					request.setAttribute("fechaDesde", fechaDesde);
 					request.setAttribute("fechaHasta", fechaHasta);
 				    int descuento = new CatalogoDescuentos().obtenerPorcentaje(fechaDesde, fechaHasta);

@@ -14,33 +14,18 @@ import negocio.datos.CatalogoVehiculos;
 import validaciones.Jarvis;
 import validaciones.PropiasExceptions;
 
-/**
- * Servlet implementation class EstadoReparacion
- */
 public class ValidarReparacion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ValidarReparacion() {
+	public ValidarReparacion() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		String nroPatente = request.getParameter("nroPatente");
 		String date1 = request.getParameter("fechaDesdeReparacion");
@@ -50,7 +35,7 @@ public class ValidarReparacion extends HttpServlet {
 		Jarvis j = new Jarvis();
 		CatalogoVehiculos catveh = new CatalogoVehiculos();
 		CatalogoReparaciones catrep = new CatalogoReparaciones();
-		
+			
 		if ( date1.isEmpty() || date2.isEmpty() || nroPatente.isEmpty() || tipoReparacion.isEmpty() ) { 
 			request.setAttribute("respuesta", "Completar campos vacíos"); 
 			respuesta(request,response);
@@ -59,7 +44,6 @@ public class ValidarReparacion extends HttpServlet {
 			try {
 			
 			j.validarPatente(nroPatente);
-			j.validarFormatoFechas(date1, date2);
 			j.fechasHabilitadas(date1, date2);
 			java.sql.Date fechaDesde = j.primerFechaSQL(date1);
 		    java.sql.Date fechaHasta = j.primerFechaSQL(date2);
@@ -72,7 +56,14 @@ public class ValidarReparacion extends HttpServlet {
 				respuesta(request,response);
 		    
 		    } else {
-		    
+		    	
+		    	if ( !catveh.getVehiculoDisp(nroPatente, fechaDesde, fechaDesde).isEmpty() ) {
+		    		request.setAttribute("respuesta", "El vehiculo en esas fechas no se encuentra disponible"); 
+					respuesta(request,response);
+		    	} 
+		    	// Vehiculo disponible para ser reparado
+		    	else {
+		    	
 		    		switch (Integer.parseInt(opcion)) {
 											            
 						case 1:  new CatalogoReparaciones().insertReparacionTaller(new Taller(nroPatente,fechaDesde,fechaHasta,tipoReparacion));
@@ -107,6 +98,8 @@ public class ValidarReparacion extends HttpServlet {
 		    		
 		    		}//cierre SWITCH 
 		    	
+		    	}// Vehiculo disponible para ser reparado
+		    
 		    }// "El vehiculo no se encuentra en el sistema"
 		
 			} catch (PropiasExceptions pe) {

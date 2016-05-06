@@ -16,6 +16,7 @@ import entidad.Taller;
 import entidad.Usuario;
 import entidad.Vehiculo;
 import util.DataConnectionManager;
+import validaciones.PropiasExceptions;
 
 public class CatalogoCategorias {
 
@@ -38,7 +39,7 @@ public class CatalogoCategorias {
 					precioCategoria = rs.getFloat("precioCategoria");
 				}	
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 		}
 		finally{
 				try{
@@ -47,7 +48,7 @@ public class CatalogoCategorias {
 						DataConnectionManager.getInstancia().CloseConn();
 					}
 				catch (SQLException sqle){
-						sqle.printStackTrace();
+						throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 					}
 		}
 
@@ -115,7 +116,7 @@ public class CatalogoCategorias {
 					categorias.add(c);
 				}	
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 		}
 		finally{
 				try{
@@ -124,7 +125,7 @@ public class CatalogoCategorias {
 						DataConnectionManager.getInstancia().CloseConn();
 				}
 				catch (SQLException sqle){
-						sqle.printStackTrace();
+					throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 				}
 		}
 

@@ -6,19 +6,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import negocio.datos.CatalogoCategorias;
-import validaciones.PropiasExceptions;
-
 /**
- * Servlet implementation class RegistrarAlquiler
+ * Servlet implementation class PagCliente
  */
-public class NuevoAlquiler extends HttpServlet {
+public class PagCliente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NuevoAlquiler() {
+    public PagCliente() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +25,7 @@ public class NuevoAlquiler extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -39,23 +36,8 @@ public class NuevoAlquiler extends HttpServlet {
 		
 		request.setAttribute("usuario", request.getParameter("usuario"));
 		request.setAttribute("contraseña", request.getParameter("contraseña"));
-		
-		try {
-		
-			request.setAttribute("categorias", new CatalogoCategorias().getCategorias());
-			getServletContext().getRequestDispatcher("/nuevoAlquiler.jsp").forward(request,response);
-		
-		} catch (PropiasExceptions pe) {
-			request.setAttribute("respuesta", pe.getResp()); 
-			respuesta(request,response);
-		}
-		
-	}
-
-	private void respuesta (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
-		
-		getServletContext().getRequestDispatcher("/respuesta.jsp").forward(request,response);
-	
+		getServletContext().getRequestDispatcher("/pagppalCliente.jsp").forward(request,response);
+        
 	}
 
 }

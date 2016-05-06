@@ -43,6 +43,7 @@
 	
 	<% ArrayList <Vehiculo> vehiculos = (ArrayList<Vehiculo>) request.getAttribute("vehiculosDisp"); %>
 	<% String usuario = (String)request.getAttribute("usuario"); %>
+	<% String contraseña = (String)request.getAttribute("contraseña"); %>
 	<% java.sql.Date fechaDesde = (java.sql.Date)request.getAttribute("fechaDesde"); %>
 	<% java.sql.Date fechaHasta = (java.sql.Date)request.getAttribute("fechaHasta"); %>
 	<% String descuento = String.valueOf(request.getAttribute("descuento")); %>
@@ -132,6 +133,7 @@
 			
 			<form action="GenerarAlquiler" method="post">
 		  	<input type="hidden" name="usuario" value=<%=usuario%>>
+		  	<input type="hidden" name="contraseña" value=<%=contraseña%>>
 		  	<input type="hidden" name="nroPatente" value=<%=nroPatente%>>
 		  	<input type="hidden" name="importe" value=<%=importe%>>
 		  	<input type="hidden" name="fechaDesde" value=<%=fechaDesde%>>
@@ -156,7 +158,12 @@
 		<input type="button" class="btn btn-info" value="Volver Atrás" onclick="history.back()" />
 	</form>
 	<br>
-
+	<form action="PagCliente" method="post">
+		<input type="hidden" name="usuario" value=<%=usuario%>>
+		<input type="hidden" name="contraseña" value=<%=contraseña%>>
+		<input type="submit" class="btn btn-warning" value="Pagina Principal" >
+	</form>
+	<br>
 </div>
 
 </body>

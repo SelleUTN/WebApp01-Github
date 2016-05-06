@@ -12,6 +12,7 @@ import entidad.Alquiler;
 import entidad.Categoria;
 import entidad.Descuento;
 import util.DataConnectionManager;
+import validaciones.PropiasExceptions;
 
 public class CatalogoDescuentos {
 
@@ -37,7 +38,7 @@ public class CatalogoDescuentos {
 						porcentaje = rs.getInt("descuento");
 				}
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 		}
 		finally{
 				try{
@@ -46,7 +47,7 @@ public class CatalogoDescuentos {
 						DataConnectionManager.getInstancia().CloseConn();
 					}
 				catch (SQLException sqle){
-							sqle.printStackTrace();
+						throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 					}
 		}
 

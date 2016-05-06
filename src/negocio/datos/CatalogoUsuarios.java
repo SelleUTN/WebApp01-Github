@@ -7,6 +7,7 @@ import entidad.Alquiler;
 import entidad.Usuario;
 import entidad.Vehiculo;
 import util.DataConnectionManager;
+import validaciones.PropiasExceptions;
 
 public class CatalogoUsuarios {
 
@@ -35,7 +36,7 @@ public class CatalogoUsuarios {
 					u.setRol(rs.getString("rolUsuario"));
 				}	
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 		}
 		finally{
 				try{
@@ -44,7 +45,7 @@ public class CatalogoUsuarios {
 						DataConnectionManager.getInstancia().CloseConn();
 					}
 				catch (SQLException sqle){
-						sqle.printStackTrace();
+						throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 					}
 		}
 

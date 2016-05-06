@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import entidad.Mecanico;
 import entidad.Taller;
 import util.DataConnectionManager;
+import validaciones.PropiasExceptions;
 
 public class CatalogoReparaciones {
 
@@ -38,7 +39,7 @@ public class CatalogoReparaciones {
 
 				
 		} catch (SQLException e) {
-					e.printStackTrace();
+			throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 		}
 		finally{
 				try{
@@ -46,7 +47,7 @@ public class CatalogoReparaciones {
 						DataConnectionManager.getInstancia().CloseConn();
 				}
 				catch (SQLException sqle){
-							sqle.printStackTrace();
+					throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 				}
 		}
 	
@@ -74,7 +75,7 @@ public class CatalogoReparaciones {
 				}
 
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 		}
 		finally{
 				try{
@@ -82,7 +83,7 @@ public class CatalogoReparaciones {
 						DataConnectionManager.getInstancia().CloseConn();
 				}
 				catch (SQLException sqle){
-						sqle.printStackTrace();
+					throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 				}
 		}
 	
@@ -191,7 +192,7 @@ public class CatalogoReparaciones {
 					nombreMecanico=rs.getString("nombreMecanico");
 				}	
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 		}
 		finally{
 				try{
@@ -200,7 +201,7 @@ public class CatalogoReparaciones {
 					DataConnectionManager.getInstancia().CloseConn();;
 				}
 				catch (SQLException sqle){
-						sqle.printStackTrace();
+					throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 				}
 		}
 				
@@ -230,7 +231,7 @@ public class CatalogoReparaciones {
 					nombreMecanico=(rs.getString("nombreMecanico"));
 				}	
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 		}
 		finally{
 				try{
@@ -239,7 +240,7 @@ public class CatalogoReparaciones {
 					DataConnectionManager.getInstancia().CloseConn();;
 				}
 				catch (SQLException sqle){
-						sqle.printStackTrace();
+					throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 				}
 		}
 					

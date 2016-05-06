@@ -61,11 +61,12 @@
 
 	<form action="ValidarNuevoAlq" method="post">
 	  <input type="hidden" name="usuario" value=<%=request.getAttribute("usuario")%>>
+	  <input type="hidden" name="contraseña" value=<%=request.getAttribute("contraseña")%>>
 	  Fecha Desde:<br>
-	  <input type="text" id="datepicker1" name="fechaDesdeAlquiler" onpaste="return false" oncut="return false" oncopy="return false" autocomplete="off" /> <br>
+	  <input type="text" size="22" id="datepicker1" name="fechaDesdeAlquiler" onpaste="return false" oncut="return false" oncopy="return false" placeholder="mes/dia/año ej: 05/09/2016" maxlength="10" autocomplete="off" required/> <br>
 	  <br>
 	  Fecha Hasta:<br>
-	  <input type="text" id="datepicker2" name="fechaHastaAlquiler" onpaste="return false" oncut="return false" oncopy="return false" autocomplete="off" /> <br>
+	  <input type="text" size="22" id="datepicker2" name="fechaHastaAlquiler" onpaste="return false" oncut="return false" oncopy="return false" placeholder="mes/dia/año ej: 05/16/2016" maxlength="10" autocomplete="off" required/> <br>
 	  <br>
 	  Categoria:<br>
   		  <select name="idCategoria" required>    

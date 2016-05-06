@@ -4,17 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- 
-<link href="bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
-<link href="bootstrap/css/bootstrap-theme.css.map" rel="stylesheet" />
-<link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
-<link href="bootstrap/css/bootstrap.css.map" rel="stylesheet" />
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
-<link href="bootstrap/js/bootstrap.js" rel="stylesheet" />
-<link href="bootstrap/js/bootstrap.min.js" rel="stylesheet" />
-<link href="bootstrap/js/bootstrap.npm.js" rel="stylesheet" />
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <title>Ingreso al Sistema</title>
 

@@ -43,6 +43,7 @@
 			
 			<form action="NuevoAlquiler" method="post"> 
 			<input type="hidden" name="usuario" value=<%=request.getAttribute("usuario")%>>
+			<input type="hidden" name="contraseña" value=<%=request.getAttribute("contraseña")%>>
 			<input type="submit" class="btn btn-success" value="Nuevo Alquiler" />
 			</form>
 			<br>

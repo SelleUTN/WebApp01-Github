@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import entidad.Alquiler;
 import entidad.Taller;
 import util.DataConnectionManager;
+import validaciones.PropiasExceptions;
 
 public class CatalogoAlquileres {
 
@@ -126,7 +127,7 @@ public class CatalogoAlquileres {
 				}
 
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 		}
 		finally{
 				try{
@@ -134,7 +135,7 @@ public class CatalogoAlquileres {
 						DataConnectionManager.getInstancia().CloseConn();
 				}
 				catch (SQLException sqle){
-						sqle.printStackTrace();
+					throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 				}
 		}
 	

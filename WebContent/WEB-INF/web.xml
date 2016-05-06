@@ -429,4 +429,14 @@
     <servlet-name>EstadoVehiculo</servlet-name>
     <url-pattern>/EstadoVehiculo</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PagCliente</display-name>
+    <servlet-name>PagCliente</servlet-name>
+    <servlet-class>com.srk.pkg.PagCliente</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PagCliente</servlet-name>
+    <url-pattern>/PagCliente</url-pattern>
+  </servlet-mapping>
 </web-app>

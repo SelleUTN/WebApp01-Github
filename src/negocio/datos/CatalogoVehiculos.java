@@ -16,6 +16,7 @@ import entidad.Taller;
 import entidad.Usuario;
 import entidad.Vehiculo;
 import util.DataConnectionManager;
+import validaciones.PropiasExceptions;
 
 public class CatalogoVehiculos {
 	
@@ -38,7 +39,7 @@ public class CatalogoVehiculos {
 					nroPatente = rs.getString("nroPatente");
 				}	
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 		}
 		finally{
 				try{
@@ -47,7 +48,7 @@ public class CatalogoVehiculos {
 					DataConnectionManager.getInstancia().CloseConn();;
 				}
 				catch (SQLException sqle){
-						sqle.printStackTrace();
+					throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 				}
 		}
 		
@@ -95,7 +96,7 @@ public class CatalogoVehiculos {
 					vehiculos.add(v);
 				}	
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 		}
 		finally{
 				try{
@@ -103,7 +104,7 @@ public class CatalogoVehiculos {
 					DataConnectionManager.getInstancia().CloseConn();
 				}
 				catch (SQLException sqle){
-						sqle.printStackTrace();
+					throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 				}
 		}
 
@@ -149,7 +150,7 @@ public class CatalogoVehiculos {
 				
 				}	
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 		}
 		finally{
 				try{
@@ -158,7 +159,7 @@ public class CatalogoVehiculos {
 					DataConnectionManager.getInstancia().CloseConn();
 				}
 				catch (SQLException sqle){
-						sqle.printStackTrace();
+					throw new PropiasExceptions("Error del Sistema: No se pudo conectar con la base de datos");
 				}
 		}
 
@@ -456,6 +457,6 @@ public class CatalogoVehiculos {
 			
 		}
 
-	//====================================================================================
+//====================================================================================
 	
 }
